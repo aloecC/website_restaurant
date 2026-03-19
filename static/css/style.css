@@ -1,0 +1,661 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Nunito:wght@400;600;700&display=swap');
+
+/* --- 2. Глобальные переменные палитры "Лесной мох" --- */
+:root {
+  /* Базовые цвета */
+  --bg: #FDFBF7;            /* Очень светлый кремовый (цвет небеленого льна) */
+  --text: #2D3419;          /* Глубокий хвойно-черный */
+  --muted: #6D725B;         /* Полынный / Оливковый (для второстепенного текста) */
+    --bg_2: #FAF5E8;            /* Светлый медовый фон */
+  --text_2: #3E2723;          /* Темный шоколадно-коричневый */
+  --muted_2: #7F5539;         /* Приглушенный темно-коричневый */
+  --primary-steak: #DAA520; /* Золотисто-горчичный */
+  --secondary-steak: #B26A27;/*  Темно-горчичный/медный */
+  --accent-steak: #A0522D;   /* Сиенна, цвет стейка */
+  --card-bg: #FFF8DC;       /* Светлый крем-брюле */
+
+  /* Акценты "Лесной мох" */
+  --primary-moss: #388E3C;   /* Сочный лесной мох */
+  --secondary-moss: #1B5E20;  /* Глубокая лесная чаща */
+
+
+  /* Теплые "мясные" дополнения (чтобы остаться стейкхаусом) */
+  --accent-honey: #C18C5D;   /* Теплое дерево / карамелизованный мед */
+  --steak-brown: #5D4037;    /* Цвет прожаренного стейка */
+
+  /* Карточки и тени */
+  --card-bg: #ffffff;       /* Чистый белый для контраста */
+  --shadow: 0 8px 30px rgba(43, 52, 25, 0.1); /* Тень с легким оливковым подтоном */
+}
+
+/* --- 3. Общие стили для body и typography --- */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif; /* Мягкий шрифт для всего основного текста */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* Улучшенное сглаживание шрифтов */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, .section-title, .navbar-brand {
+  font-family: 'Roboto Slab', serif; /* Массивный шрифт для заголовков */
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text); /* Цвет для всех заголовков */
+}
+
+a {
+  text-decoration: none; /* Убираем подчеркивание у всех ссылок по умолчанию */
+  color: inherit; /* Ссылки наследуют цвет родителя */
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* --- 4. Стили для Navbar --- */
+.forest-navbar {
+    background-color: var(--bg);
+    padding: 1.5rem 0; /* Увеличиваем вертикальный отступ для большей высоты */
+    border-bottom: 1px solid rgba(109, 114, 91, 0.1); /* Тонкая полынная линия снизу */
+}
+
+/* Логотип */
+.navbar-brand {
+    color: var(--text) !important;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+.brand-icon { margin-right: 8px; font-size: 1.6rem; line-height: 1;}
+.brand-text { line-height: 1; }
+
+/* Кнопка-бургер для мобильных */
+.navbar-toggler {
+  border-color: rgba(109, 114, 91, 0.2) !important;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(45, 52, 25, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+/* Основные навигационные ссылки */
+.forest-navbar .nav-link {
+    color: var(--muted) !important; /* Полынный цвет по умолчанию */
+    font-weight: 600;
+    margin: 0 10px; /* Отступы между ссылками */
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+.forest-navbar .nav-link::after { /* Эффект подчеркивания при наведении */
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px; /* Отступ от текста */
+    left: 0;
+    background-color: var(--primary-moss);
+    transition: width 0.3s ease;
+}
+.forest-navbar .nav-link:hover {
+    color: var(--primary-moss) !important; /* Цвет мха при наведении */
+    transform: translateY(-2px); /* Легкое "всплытие" */
+}
+.forest-navbar .nav-link:hover::after {
+    width: 100%;
+}
+.forest-navbar .nav-link.active { /* Активная ссылка */
+    color: var(--secondary-moss) !important; /* Более темный мох для активной */
+    font-weight: 700;
+}
+.forest-navbar .nav-link.active::after {
+    width: 100%; /* Активная ссылка всегда подчеркнута */
+    background-color: var(--secondary-moss);
+}
+
+/* Ссылки "Вход" / "Профиль" */
+.nav-link-auth {
+    color: var(--muted) !important;
+    font-weight: 600;
+    transition: color 0.2s ease, transform 0.2s ease;
+    font-size: 1rem;
+}
+.nav-link-auth:hover {
+    color: var(--text) !important;
+    transform: translateY(-2px);
+}
+
+/* Кнопка "Регистрация" (зеленый мох) */
+.btn-moss-sm {
+    background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
+    color: #fff !important;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-moss-sm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
+}
+
+/* Кнопка "Выйти" (контурная, как дерево/мед) */
+.btn-outline-moss {
+    border: 2px solid var(--accent-honey);
+    color: var(--accent-honey) !important;
+    background-color: transparent;
+    padding: .4rem .9rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s;
+}
+.btn-outline-moss:hover {
+    background-color: var(--accent-honey);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(193, 140, 93, 0.2);
+}
+
+/* --- 5. Стили для Hero-секции (описание ресторана и кнопка бронирования) --- */
+.hero-section {
+    padding: 0.23rem 0; /* Высокие отступы сверху/снизу */
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Секция с особенностями ресторана (карточка) --- */
+.features-section {
+    padding: 2rem 0; /* Отступ сверху и снизу для всей секции */
+    background-color: var(--bg); /* Фоновый цвет секции */
+}
+
+.features-card {
+    background-color: var(--card-bg); /* Белый фон для самой карточки */
+    border-radius: 15px; /* Скругленные углы */
+    box-shadow: var(--shadow); /* Наша тень */
+    padding: 2.5rem 2rem; /* Внутренние отступы */
+    margin-top: 2rem; /* Отступ от предыдущего блока */
+    margin-bottom: 2rem; /* Отступ до следующего блока */
+}
+
+.features-card-title {
+    font-size: 2.2rem; /* Большой заголовок карточки */
+    color: var(--text);
+    margin-bottom: 2.5rem; /* Отступ от заголовка до списка */
+    text-align: center;
+}
+
+.features-list {
+    list-style: none; /* Убираем стандартные маркеры списка */
+    padding-left: 0; /* Убираем стандартный отступ списка */
+    margin-bottom: 0;
+}
+
+.feature-item {
+    display: flex; /* Для выравнивания иконки и текста в одну строку */
+    align-items: flex-start; /* Иконка выравнивается по верхнему краю текста */
+    margin-bottom: 2rem; /* Отступ между отдельными пунктами */
+    gap: 1.5rem; /* Расстояние между иконкой и текстом */
+}
+
+.feature-item:last-child {
+    margin-bottom: 0; /* Убираем отступ у последнего элемента */
+}
+
+.feature-icon {
+    font-size: 2.2rem; /* Размер иконки */
+    color: var(--primary-moss); /* Цвет мха для иконок */
+    min-width: 45px; /* Фиксированная ширина для выравнивания */
+    text-align: center;
+    line-height: 1; /* Для лучшего выравнивания эмодзи/иконок */
+    flex-shrink: 0; /* Предотвращаем сжимание иконки */
+}
+
+.feature-title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem; /* Заголовок пункта */
+    color: var(--primary-moss); /* Цвет мха */
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.feature-description {
+    font-size: 1.05rem; /* Описание пункта */
+    color: var(--text);
+    margin-bottom: 0;
+}
+
+.restaurant-description {
+    margin-bottom: 2rem;
+}
+
+.restaurant-description h2.section-title {
+    margin-bottom: 1rem;
+    font-size: 3rem;
+    color: var(--text);
+    font-family: 'Roboto Slab', serif;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.booking-prompt {
+    font-size: 1.2rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* Линия-разделитель */
+.accent-line {
+    height: 3px;
+    width: 80px; /* Ширина линии */
+    margin: 2rem auto; /* Центрируем и добавляем отступы */
+    background: linear-gradient(90deg, var(--primary-moss), var(--accent-honey)); /* Лес + Мед */
+    border-radius: 2px;
+}
+
+/* Кнопка "Забронировать сейчас" (главная CTA) */
+.btn-cta-b {
+    background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
+    color: #fff !important;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 1.1rem;
+    transition: all .25s ease;
+    box-shadow: 0 5px 15px rgba(27, 94, 32, 0.2);
+}
+
+.btn-cta-b:hover, .btn-cta-b:focus {
+    background: linear-gradient(90deg, var(--primary-moss), var(--steak-brown));
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(45, 52, 25, 0.3);
+}
+/* Кнопки в hero */
+.btn-steak-cta, .btn-outline-steak {
+  padding: .7rem 1.4rem; /* Сделаем кнопки крупнее и свободнее */
+  font-weight: 700;
+  letter-spacing: 0.02em; /* Легкое расстояние между буквами */
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.btn-steak-cta:hover, .btn-steak-cta:focus,
+.btn-outline-steak:hover, .btn-outline-steak:focus {
+  transform: translateY(-4px); /* Больший эффект "подъема" */
+  box-shadow: 0 12px 30px rgba(178,106,39,0.2); /* Более выраженная тень */
+}
+.btn-outline-steak:hover {
+  background-color: var(--secondary-steak); /* Кнопка заливается цветом */
+  color: #fff;                             /* Текст становится белым */
+  transform: translateY(-3px);             /* Кнопка слегка "подпрыгивает" вверх */
+}
+/* --- 6. Стили для карточек мероприятий (Event Cards) --- */
+.event-section {
+  padding: 3rem 0;
+}
+
+.event-section .section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+}
+.event-read-more {
+  font-size: 0.9rem;
+  padding: .4rem .8rem;
+}
+.event-card {
+    background-color: var(--card-bg); /* Белый фон карточки */
+    border-radius: 15px;
+    box-shadow: var(--shadow); /* Наша особая тень */
+    overflow: hidden; /* Чтобы изображение не выходило за рамки */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Чтобы карточки в ряду были одной высоты */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem; /* Отступ между карточками */
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(43, 52, 25, 0.2); /* Более выразительная тень при наведении */
+}
+
+.event-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.event-image {
+    display: block;
+    width: 100%;
+    height: 250px; /* Фиксированная высота для изображений */
+    object-fit: cover; /* Изображение будет обрезаться, чтобы заполнить блок */
+}
+
+.event-placeholder { /* Если изображения нет */
+    width: 100%;
+    height: 250px;
+    background-color: var(--muted);
+    opacity: 0.6;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-family: 'Roboto Slab', serif;
+}
+
+.event-content {
+    padding: 1.5rem; /* Отступы внутри карточки */
+    flex-grow: 1; /* Чтобы контент занимал доступное пространство */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Размещаем контент для равномерного распределения */
+}
+
+.event-title {
+  margin-bottom: 0.5rem;
+}
+.event-title a {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.6rem;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.event-title a:hover {
+    color: var(--primary-moss);
+}
+
+.event-date {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+}
+
+.event-description {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Чтобы описание растягивалось */
+}
+
+.event-read-more {
+    display: inline-block; /* Чтобы можно было применить padding */
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    color: var(--accent-honey) !important; /* Цвет ссылки */
+    border: 2px solid var(--accent-honey);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-top: auto; /* Прижимает кнопку в самый низ карточки */
+}
+.event-read-more:hover {
+    background-color: var(--accent-honey);
+    color: #fff !important;
+}
+
+/* --- 7. Кнопка "Все мероприятия" (под карточками) --- */
+.all-events-btn-wrapper {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+}
+.btn-steak-cta {
+  background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
+  color: #fff !important;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn-steak-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(27, 94, 32, 0.2);
+  background: linear-gradient(90deg, var(--secondary-moss), var(--primary-moss)); /* Меняем порядок градиента */
+}
+
+/* --- 8. Адаптивность для мобильных устройств --- */
+@media (max-width: 991.98px) { /* breakpoint для lg */
+    /* Navbar */
+    .forest-navbar {
+      padding: 1rem 0; /* Чуть меньше на мобильных */
+    }
+    .forest-navbar .navbar-nav {
+        margin-top: 1rem;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        text-align: center;
+    }
+    .forest-navbar .nav-link {
+        margin: 5px 0;
+        padding: 0.5rem 0;
+        font-size: 1rem;
+    }
+    .forest-navbar .nav-link::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .forest-navbar .nav-link.active::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .d-flex.ms-auto {
+        justify-content: center !important;
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .navbar-brand {
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .navbar-toggler {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
+
+    /* Hero-секция */
+    .hero-section {
+        padding: 3rem 0;
+    }
+    .restaurant-description h2.section-title {
+        font-size: 2.5rem;
+    }
+    .description-text, .booking-prompt {
+        font-size: 1rem;
+    }
+    .btn-cta-b {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* Карточки мероприятий */
+    .event-section .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .event-image {
+        height: 200px; /* Чуть меньше высота изображения на мобильных */
+    }
+    .event-placeholder {
+      height: 200px;
+    }
+    .event-title a {
+      font-size: 1.4rem;
+    }
+    .event-content {
+      padding: 1rem;
+    }
+    .all-events-btn-wrapper {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+    }
+        .features-section {
+        padding: 3rem 0;
+    }
+    .features-card {
+        padding: 1.5rem;
+    }
+    .features-card-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    .feature-item {
+        flex-direction: column; /* На мобильных иконка сверху, текст снизу */
+        align-items: center;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        gap: 0.5rem;
+    }
+    .feature-icon {
+        font-size: 2rem;
+        min-width: unset; /* Отменяем фиксированную ширину */
+        margin-bottom: 0.5rem;
+    }
+    .feature-title {
+        font-size: 1.3rem;
+    }
+    .feature-description {
+        font-size: 0.95rem;
+    }
+}
+* --- 9. Стили для формы контактов "Берлога" --- */
+.contact-form-section {
+    padding: 5rem 0; /* Отступы для всей секции */
+    background-color: var(--bg); /* Фоновый цвет секции */
+}
+
+.contact-card {
+    background-color: var(--card-bg); /* Белый фон карточки */
+    border-radius: 15px; /* Скругленные углы */
+    box-shadow: var(--shadow); /* Наша тень */
+    width: 100%; /* Гарантируем полную ширину внутри колонки */
+    margin-top: 2rem; /* Отступы от окружающих элементов */
+    margin-bottom: 2rem;
+    overflow: hidden; /* Для того чтобы border-radius применялся к header */
+}
+
+.contact-card-header {
+    background-color: var(--primary-moss); /* Цвет мха для заголовка */
+    padding: 1.5rem 2rem;
+    color: #fff; /* Белый текст заголовка */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая светлая линия */
+    border-top-left-radius: 15px; /* Скругление углов, т.к. overflow: hidden; */
+    border-top-right-radius: 15px;
+}
+
+.contact-card-header h2 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff; /* Белый для заголовка */
+    margin-bottom: 0;
+    display: flex; /* Для выравнивания текста и иконки */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Отступ между текстом и иконкой */
+}
+
+.contact-card-header .header-icon {
+  font-size: 1.8rem; /* Размер эмодзи/иконки */
+  line-height: 1; /* Для лучшего выравнивания */
+}
+/* Если используете Font Awesome */
+/* .contact-card-header .header-icon i {
+    color: #fff;
+} */
+
+
+.contact-card-body {
+    padding: 2rem;
+}
+
+/* Стили для label */
+.contact-label {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    display: block; /* Чтобы label занимал всю ширину */
+    text-align: left; /* Выравнивание текста label */
+}
+
+/* Стили для input/textarea (переопределяем Bootstrap form-control) */
+.form-control.contact-input {
+    border: 1px solid var(--muted); /* Полынный цвет для границы */
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    background-color: var(--bg); /* Светлый фон для полей */
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control.contact-input::placeholder {
+    color: var(--muted);
+    opacity: 0.7;
+}
+
+.form-control.contact-input:focus {
+    border-color: var(--primary-moss); /* Зеленый при фокусе */
+    box-shadow: 0 0 0 0.25rem rgba(56, 142, 60, 0.25); /* Легкая зеленая тень */
+    background-color: var(--card-bg); /* Можно сделать фон светлее при фокусе */
+    outline: none; /* Убираем стандартный синий outline */
+}
+
+/* Адаптивность для формы */
+@media (max-width: 767.98px) {
+    .contact-form-section {
+        padding: 3rem 0;
+    }
+    .contact-card-header {
+        padding: 1.2rem 1.5rem;
+    }
+    .contact-card-header h2 {
+        font-size: 1.8rem;
+    }
+    .contact-card-header .header-icon {
+        font-size: 1.5rem;
+    }
+    .contact-card-body {
+        padding: 1.5rem;
+    }
+    .contact-label {
+        font-size: 0.95rem;
+    }
+    .form-control.contact-input {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.95rem;
+    }
+    /* Кнопка .btn-steak-cta уже должна быть адаптивной из предыдущих стилей */
+}

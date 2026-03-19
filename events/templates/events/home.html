@@ -1,0 +1,91 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title%}Главная{% endblock %}
+
+{% block content %}
+
+
+<div class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-8">
+        <div class="restaurant-description text-center">
+          <h2 class="section-title">"Берлога"</h2>
+          <p class="lead description-text">
+            Место, где сила дикой природы встречается с искусством приготовления стейков. Добро пожаловать в нашу лесную обитель, где каждый гость — желанный медведь! Мы создали пространство, которое перенесет вас в уютную, но в то же время величественную атмосферу настоящего леса. Теплый свет, натуральные материалы и неповторимый аромат свежеприготовленного мяса создают идеальные условия для незабываемого гастрономического путешествия.
+          </p>
+          <div class="accent-line"></div>
+          <p class="lead booking-prompt">
+            Бронируйте столик в пару кликов — уютная атмосфера и внимательный сервис.
+          </p>
+          <div class="col-lg-12 text-center">
+            <a href="#" class="btn btn-cta-b mt-4 btn-lg">Забронировать сейчас</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<section class="features-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-8"> {# Расширяем карточку для лучшего чтения #}
+        <div class="features-card">
+          <h3 class="features-card-title text-center">Наши особенности и предложения</h3>
+          <ul class="features-list">
+            <li class="feature-item">
+              <div>
+                <h4 class="feature-title">Авторские стейки</h4>
+                <p class="feature-description">Отборное мясо от лучших поставщиков, приготовленное до идеальной прожарки по вашему вкусу.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <h4 class="feature-title">Сезонное меню</h4>
+                <p class="feature-description">Блюда, вдохновленные дарами природы, с использованием свежих, сезонных продуктов.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <h4 class="feature-title">Крепкие напитки</h4>
+                <p class="feature-description">Богатая винная карта, крафтовое пиво, авторские коктейли и крепкий алкоголь, идеально сочетающиеся с нашими блюдами.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <h4 class="feature-title">Лесные деликатесы</h4>
+                <p class="feature-description">Уникальные блюда с использованием диких грибов, ягод и других лесных даров.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if event_actual_list %} {# Проверяем, есть ли мероприятия в списке #}
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for event in event_actual_list %}
+      <div class="col-12">
+          <div>
+            {% if event.poster %}
+              <img src="{{ event.poster.url }}">
+            {% else %}
+            {% endif %}
+          </div>
+          <div class="p-3 p-md-4">
+            <h3><a href="#" class="text-decoration-none text-reset">{{ event.name }}</a></h3>
+            <p class="text-muted mb-2"><i class="me-2"></i> {{ event.date_start|date:"d E, Y, G:i" }}</p>
+            <p class="text-muted">{{ event.description|truncatechars:100 }}</p>
+            <a href="#" class="btn btn-outline-steak event-read-more w-100">Подробнее</a>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endif %}
+{% endblock %}

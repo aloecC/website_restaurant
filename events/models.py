@@ -9,7 +9,7 @@ class AgeGroup(models.Model):
     """Модель-справочник возрастных групп"""
 
     name = models.CharField(max_length=50, verbose_name="Возрастная группа")
-    code = models.CharField(max_length=20, unique=True)
+    code = models.CharField(max_length=20, unique=True, verbose_name="Код группы")
 
     def __str__(self):
         return self.name
@@ -19,7 +19,7 @@ class AgeGroup(models.Model):
         verbose_name_plural = "Возрастные группы"
 
 
-class Events(models.Model):
+class Event(models.Model):
     """Модель ананосов в ресторане"""
 
     name = models.CharField(max_length=100, verbose_name="Название")
@@ -32,6 +32,7 @@ class Events(models.Model):
 
     date_start = models.DateTimeField(verbose_name="Дата начала", null=True)
     max_people = models.PositiveIntegerField(default=50, verbose_name="Макс. кол-во человек")
+    now_people = models.PositiveIntegerField(default=50, verbose_name="Актуальное количество человек кол-во человек")
 
     recommend_audit_gender = models.CharField(
         choices=CustomUser.GENDER_CHOICES, max_length=15, blank=True, null=True, verbose_name="Целевой пол"
@@ -45,7 +46,7 @@ class Events(models.Model):
         verbose_name="Целевая аудитория (дети)",
     )
 
-    recomend_audit_age = models.ManyToManyField(AgeGroup, blank=True, verbose_name="Целевые возрастные группы")
+    recommend_audit_age = models.ManyToManyField(AgeGroup, blank=True, verbose_name="Целевые возрастные группы")
 
     def __str__(self):
         return self.name

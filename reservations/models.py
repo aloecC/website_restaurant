@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-from restaurants.models import Tables
+from restaurants.models import Table
 from users.models import CustomUser
 
 
@@ -25,7 +25,7 @@ class Reservation(models.Model):
     guest_phone = models.CharField(max_length=20, blank=True, null=True, verbose_name="Телефон гостя")
     guest_email = models.EmailField(blank=True, null=True, verbose_name="Email гостя")
 
-    table = models.ForeignKey(Tables, on_delete=models.PROTECT, verbose_name="Столик")
+    table = models.ForeignKey(Table, on_delete=models.PROTECT, verbose_name="Столик")
 
     date = models.DateField(verbose_name="Дата бронирования")
     start_time = models.TimeField(verbose_name="Время начала")

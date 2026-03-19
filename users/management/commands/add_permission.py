@@ -8,7 +8,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         User = get_user_model()
-        admin_email = "test@mail.ru"  # Замените на email вашего администратора
+        admin_email = "test@mail.ru"
 
         try:
             admin_user = User.objects.get(email=admin_email)
