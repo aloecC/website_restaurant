@@ -1,0 +1,13 @@
+{% extends 'restaurants/base.html' %}
+{% block title %} Удаление мероприятия {% endblock %}
+{% block content %}
+   <div class="container mt-5">
+        <h3 class="mb-3">Удаление мероприятия</h3>
+        <p>Вы действительно хотите удалить?</p>
+       <form method="post" action="{% url 'events:event_delete' event.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger"> Подтвердить </button>
+            <a href="{% url 'events:events_list' %}" class="btn btn-outline-secondary btn-back"> Отменить </a>
+        </form>
+    </div>
+{% endblock %}

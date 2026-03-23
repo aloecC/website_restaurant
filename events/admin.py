@@ -5,8 +5,8 @@ from .models import AgeGroup, Event
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = (id, "name", "date_start", "price", "min_age", "poster", "min_age")
-    list_filter = ("price", "date_start", "hall")
+    list_display = (id, "name", "date_start", "min_age", "poster", "min_age")
+    list_filter = ("date_start",)
     search_fields = (
         "name",
         "description",

@@ -1,0 +1,153 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title%}О нас{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-8">
+        <div class="restaurant-description text-center">
+          <h2 class="section-title">Кто же мы такие и откуда пришли?</h2>
+          <div class="accent-line-about"></div>
+          <p class="lead description-text">
+            В сердце bustling города взошел "Берлога" — ресторан, который перенесет вас в величественные просторы Сибири. Наша история началась с одной мечты: создать место, где люди могут наслаждаться не только изысканной кухней, но и атмосферой уюта и тепла, которые ассоциируются с родным домом. Мы черпаем вдохновение из богатых традиций сибирской кулинарии, где каждая тарелка рассказывает историю о любви к природе и уважении к ее дарам.
+          </p>
+          <div class="accent-line-about"></div>
+          <h2 class="section-title">Миссия и ценности</h2>
+           <div class="accent-line-about"></div>
+          <p class="lead description-text">
+            Наша миссия — соединить сердца людей через вкусную еду и искренние эмоции. Мы верим в важность качественных ингредиентов, поэтому работаем только с местными фермерами и поставщиками, поддерживая экологически чистое производство.
+          </p>
+           <ul class="features-list">
+            <li class="feature-item">
+              <div>
+                <div class="accent-line"></div>
+                <h4 class="feature-title">Честность перед природой</h4>
+                <p class="feature-description">Мы берем у леса только лучшее, не нарушая его гармонии. «Берлога» поддерживает концепцию коротких поставок: дикоросы, таёжные травы и фермерское мясо попадают к нам на кухню в кратчайшие сроки. Мы инвестируем в экологически чистое производство, чтобы сохранить богатство нашей земли для будущих поколений.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <div class="accent-line"></div>
+                <h4 class="feature-title">Мастерство Огня и Стали</h4>
+                <p class="feature-description">Приготовление идеального стейка — это наш священный ритуал. Мы объединяем первобытную силу открытого огня с современными технологиями вызревания мяса. Наши повара — это мастера, которые знают характер каждого отруба и умеют подчеркнуть его природную текстуру, не перебивая её лишним.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <div class="accent-line"></div>
+                <h4 class="feature-title">Безусловное гостеприимство</h4>
+                <p class="feature-description">В «Берлоге» нет клиентов, есть только Гости. Мы возрождаем традиции сибирского радушия, где каждого встречают как доброго друга. Забота проявляется в деталях: от температуры подачи блюда до умения официанта предвосхитить ваше желание. Мы несем ответственность за ваш комфорт и настроение.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <div class="accent-line"></div>
+                <h4 class="feature-title">Прозрачность и доверие</h4>
+                <p class="feature-description">Мы ничего не скрываем от своих гостей. Вы всегда можете узнать происхождение любого ингредиента на вашей тарелке: от того, на каком лугу паслось стадо, до того, в каком лесу были собраны эти лисички. Честность — это фундамент, на котором строится вкус настоящей еды.</p>
+              </div>
+            </li>
+            <li class="feature-item">
+              <div>
+                <div class="accent-line"></div>
+                <h4 class="feature-title">Культурное наследие Сибири</h4>
+                <p class="feature-description">Каждое блюдо в меню — это страница из книги сибирской истории. Мы переосмысляем старинные рецепты охотников и собирателей, адаптируя их к высокой гастрономии. Мы хотим, чтобы вы пробовали Сибирь на вкус, открывая для себя сочетания хвои, кедрового ореха, морошки и дикого мяса.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="accent-line-about"></div>
+<div class="hero-section">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-12">
+        <div class="restaurant-description text-center">
+          <h2 class="section-title">Наша команда</h2>
+          <div class="accent-line-about"></div>
+          <h3 class="feature-title">Лицо "Берлоги"</h3>
+            {% if team_hall %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+                  {% for people in team_hall %}
+                      <div class="team-card mx-2">
+                        <div class="team-image-container">
+                            {% if people.avatar %}
+                                <img src="{{ people.avatar.url }}" class="team-photo" alt="{{ people.first_name }}">
+                            {% else %}
+                                <div class="team-photo-placeholder">👤</div>
+                            {% endif %}
+                        </div>
+                        <div class="team-info">
+                            <h5 class="team-name">{{ people.position }}</h5>
+                            <h6 class="team-name">{{ people.first_name }}</h6>
+                            <p class="team-description">{{ people.description}}</p>
+                        </div>
+                      </div>
+                  {% endfor %}
+                  </div>
+                </div>
+              </div>
+           </div>
+           {% endif %}
+
+          <h3 class="feature-title text-center">Сердце "Берлоги"</h3>
+                  {% if team_kitchen %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+                  {% for people in team_kitchen %}
+                      <div class="team-card mx-2">
+                        <div class="team-image-container">
+                            {% if people.avatar %}
+                                <img src="{{ people.avatar.url }}" class="team-photo" alt="{{ people.first_name }}">
+                            {% else %}
+                                <div class="team-photo-placeholder">👤</div>
+                            {% endif %}
+                        </div>
+                        <div class="team-info">
+                            <h5 class="team-name">{{ people.position }}</h5>
+                            <h6 class="team-name">{{ people.first_name }}</h6>
+                            <p class="team-description">{{ people.description}}</p>
+                        </div>
+                      </div>
+                  {% endfor %}
+                  </div>
+                </div>
+              </div>
+           </div>
+           {% endif %}
+
+          <h3 class="feature-title text-center mt-4">Мозг "Берлоги"</h3>
+            {% if bosses %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+                  {% for people in bosses %}
+                      <div class="team-card mx-2">
+                        <div class="team-image-container">
+                            {% if people.avatar %}
+                                <img src="{{ people.avatar.url }}" class="team-photo" alt="{{ people.first_name }}">
+                            {% else %}
+                                <div class="team-photo-placeholder">👤</div>
+                            {% endif %}
+                        </div>
+                        <div class="team-info">
+                            <h5 class="team-name">{{ people.position }}</h5>
+                            <h6 class="team-name">{{ people.first_name }}</h6>
+                            <p class="team-description">{{ people.description}}</p>
+                        </div>
+                      </div>
+                  {% endfor %}
+                  </div>
+                </div>
+              </div>
+           </div>
+           {% endif %}
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from restaurants.models import Hall
 from users.models import CustomUser
 
 
@@ -24,16 +23,14 @@ class Event(models.Model):
 
     name = models.CharField(max_length=100, verbose_name="Название")
     poster = models.ImageField(upload_to="events/", verbose_name="Постер", blank=True, null=True)
-    hall = models.ManyToManyField(Hall, blank=True, verbose_name="Зал проведения")
 
     description = models.TextField(max_length=10000, verbose_name="Описание")
-    price = models.PositiveIntegerField(default=0, blank=True, null=True)
     min_age = models.PositiveIntegerField(default=0, blank=True, null=True, verbose_name="Возрастное ограничение")
 
     date_start = models.DateTimeField(verbose_name="Дата начала", null=True)
-    max_people = models.PositiveIntegerField(default=50, verbose_name="Макс. кол-во человек")
-    now_people = models.PositiveIntegerField(default=50, verbose_name="Актуальное количество человек кол-во человек")
+    now_people = models.PositiveIntegerField(default=50, verbose_name="Актуальное количество человек")
 
+    is_archive = models.BooleanField(default=False)
     recommend_audit_gender = models.CharField(
         choices=CustomUser.GENDER_CHOICES, max_length=15, blank=True, null=True, verbose_name="Целевой пол"
     )

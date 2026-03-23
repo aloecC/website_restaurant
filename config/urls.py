@@ -9,3 +9,6 @@ urlpatterns = [
     path("events/", include("events.urls", namespace="events")),
     path("restaurants/", include("restaurants.urls", namespace="restaurants")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

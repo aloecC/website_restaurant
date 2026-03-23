@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from config.settings import DEFAULT_FROM_EMAIL
 
+from .forms import EventForm
 from .models import Event
 
 
@@ -22,7 +23,7 @@ class EventActualListView(ListView):
     context_object_name = "event_actual_list"
 
     def get_queryset(self):
-        events = cache.get("events_actual_queryset")
+        events = cache.get("events_ctual_queryset")
         if events is None:
             now = datetime.datetime.now()
             seven_days_from_now = now + datetime.timedelta(days=7)
@@ -31,7 +32,7 @@ class EventActualListView(ListView):
                 "date_start"
             )
 
-            cache.set("events_actual_queryset", events, 60 * 15)
+            cache.set("events_ctual_queryset", events, 60 * 15)
 
         return events
 
@@ -44,13 +45,14 @@ class EventListView(ListView):
     context_object_name = "events"
 
     def get_queryset(self):
-        events = cache.get("events_queryset")
-        if events is None:
-            datetime.datetime.now()
-            events = self.model.objects.all()
-            cache.set("events_queryset", events, 60 * 15)
+        return self.model.objects.filter(is_archive=False).order_by("date_start")
 
-        return events
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["is_moderator"] = user.is_staff or user.groups.filter(name="Модератор").exists()
+        context["events_archive"] = self.model.objects.filter(is_archive=True)
+        return context
 
 
 class EventDetailView(DetailView):
@@ -63,5 +65,31 @@ class EventDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        context["is_moderator"] = user.is_staff and user.groups.filter(name="Модератор продуктов").exists()
+        context["is_moderator"] = user.is_staff and user.groups.filter(name="Модератор").exists()
         return context
+
+
+class EventCreateView(CreateView):
+    """Создание мероприятия"""
+
+    model = Event
+    form_class = EventForm
+    template_name = "events/event_form.html"
+    success_url = reverse_lazy("events:events_list")
+
+
+class EventUpdateView(UpdateView):
+    """Изменение мероприятия"""
+
+    model = Event
+    form_class = EventForm
+    template_name = "events/event_form.html"
+    success_url = reverse_lazy("events:events_list")
+
+
+class EventDeleteView(DeleteView):
+    """Удаление мероприятия"""
+
+    model = Event
+    template_name = "events/events_confirm_delete.html"
+    success_url = reverse_lazy("events:events_list")

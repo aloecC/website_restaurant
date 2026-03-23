@@ -1,0 +1,13 @@
+{% extends 'restaurants/base.html' %}
+{% block title %} Форма для мероприятия {% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h3 class="mb-3">Форма для мероприятия</h3>
+        <form method="post" enctype="multipart/form-data" action="{% if event %}{% url 'events:event_edit' event.pk %}{% else %}{% url 'events:event_create' %}{% endif %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-moss-sm btn btn-sm">Сохранить</button>
+            <a href="{% url 'events:events_list' %}" class="btn btn-outline-secondary btn-back">Отменить</a>
+        </form>
+    </div>
+{% endblock %}

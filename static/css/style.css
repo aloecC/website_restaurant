@@ -55,6 +55,128 @@ a:hover {
   text-decoration: none;
 }
 
+/* --- Стили для секции мероприятий --- */
+.events-list-section {
+    padding: 3rem 0;
+    background-color: var(--bg); /* Используйте вашу переменную для фона */
+}
+
+.events-list-section .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--text);
+}
+
+/* --- Стили для ГОРИЗОНТАЛЬНОЙ карточки мероприятия --- */
+.event-horizontal-card {
+    display: flex; /* Делает элементы внутри flex-контейнерами */
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-horizontal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Обертка для постера (фиксированный размер) */
+.event-poster-wrapper {
+    flex-shrink: 0; /* Не сжимать этот блок */
+    width: 250px; /* Фиксированная ширина для постера */
+    height: 200px; /* Фиксированная высота для постера */
+    overflow: hidden;
+    background-color: #f8f8f8;
+}
+
+/* Стили самого изображения постера */
+.event-poster-horizontal {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обрезает изображение, чтобы оно заполняло контейнер */
+    object-position: center; /* Центрирует изображение */
+}
+
+/* Заглушка, если нет постера */
+.event-poster-placeholder-horizontal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #ccc;
+    background-color: #f0f0f0;
+}
+
+/* Блок с информацией о мероприятии */
+.event-info-horizontal {
+    flex-grow: 1; /* Позволяет блоку занимать оставшееся пространство */
+    padding: 1.5rem 2rem; /* Отступы внутри блока */
+    display: flex;
+    flex-direction: column; /* Элементы внутри будут идти друг под другом */
+    justify-content: center; /* Центрирует содержимое по вертикали */
+}
+
+.event-title {
+    font-size: 1.8rem;
+    font-family: 'Roboto Slab', serif; /* Ваш фирменный шрифт */
+    color: var(--text); /* Цвет текста */
+    margin-bottom: 0.8rem;
+}
+
+.event-date {
+    font-size: 0.95rem;
+    color: var(--muted); /* Приглушенный цвет */
+    font-weight: 500;
+}
+
+.event-description {
+    font-size: 1rem;
+    color: var(--text-light); /* Немного светлее, чем основной текст */
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Стили для кнопки "Подробнее" */
+.event-read-more {
+    align-self: flex-start; /* Прижимает кнопку к началу (левому краю) */
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    border-color: var(--primary-moss); /* Ваш цвет обводки */
+    color: var(--primary-moss); /* Цвет текста кнопки */
+}
+
+.event-read-more:hover {
+    background-color: var(--primary-moss);
+    color: #fff;
+}
+
+/* --- Адаптивность для мобильных устройств --- */
+@media (max-width: 767.98px) { /* Для экранов меньше md */
+    .event-horizontal-card {
+        flex-direction: column; /* На мобильных карточка будет вертикальной */
+    }
+    .event-poster-wrapper {
+        width: 100%; /* Постер займет всю ширину */
+        height: 250px; /* Увеличим высоту постера на мобильных */
+    }
+    .event-info-horizontal {
+        padding: 1.2rem;
+        text-align: center; /* Центрируем текст на мобильных */
+    }
+    .event-read-more {
+        align-self: center; /* Центрируем кнопку на мобильных */
+        width: 100%; /* Кнопка на всю ширину */
+    }
+    .event-title {
+        font-size: 1.5rem;
+    }
+}
+
 /* --- 4. Стили для Navbar --- */
 .forest-navbar {
     background-color: var(--bg);
@@ -176,9 +298,10 @@ a:hover {
     z-index: 1;
 }
 
+
 /* --- Секция с особенностями ресторана (карточка) --- */
 .features-section {
-    padding: 2rem 0; /* Отступ сверху и снизу для всей секции */
+    padding: 0.1rem 0; /* Отступ сверху и снизу для всей секции */
     background-color: var(--bg); /* Фоновый цвет секции */
 }
 
@@ -262,15 +385,223 @@ a:hover {
     margin-bottom: 2rem;
 }
 
-/* Линия-разделитель */
+/* --- Стили для детальной страницы мероприятия --- */
+
+.event-detail-section {
+    padding: 5rem 0;
+    background-color: var(--bg-light); /* Светлый фон для секции */
+}
+
+.event-detail-wrapper {
+    background-color: #fff; /* Белый фон для всей карточки */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* По умолчанию, сначала идет контент, потом кнопки */
+}
+
+/* --- Блок контента (постер + информация) --- */
+.event-content-block {
+    display: flex;
+    flex-direction: column; /* На мобильных: сначала постер, потом информация */
+    align-items: center; /* Центрируем элементы на случай, если ширина не полная */
+}
+
+/* --- Блок постера --- */
+.event-poster-detail {
+    width: 100%;
+    height: 450px; /* Фиксированная высота для постера */
+    overflow: hidden;
+    background-color: var(--muted); /* Цвет, пока изображение грузится */
+}
+
+.event-poster-detail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Масштабирует и обрезает, чтобы заполнить блок */
+    object-position: center;
+    display: block; /* Убирает лишний отступ под картинкой */
+}
+
+.event-poster-placeholder-detail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: #ccc;
+    background-color: #f0f0f0;
+}
+
+.event-poster-placeholder-detail h2 {
+    font-size: 6rem;
+    margin: 0;
+    line-height: 1;
+    color: #e0e0e0;
+}
+
+.event-poster-placeholder-detail p {
+    font-size: 1.2rem;
+    color: #aaa;
+    margin-top: 0;
+}
+
+/* --- Блок с информацией --- */
+.event-info-detail {
+    padding: 2.5rem 2rem; /* Больше отступов */
+    text-align: left; /* Текст выравнивается по левому краю */
+    max-width: 700px; /* Ограничиваем ширину текста для лучшей читаемости */
+    margin: 0 auto; /* Центрируем блок текста */
+}
+
+.event-detail-title {
+    font-size: 2.8rem;
+    font-family: 'Roboto Slab', serif;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+/* --- Метаданные (дата, время, место) --- */
+.event-meta {
+    margin-bottom: 2rem;
+    color: var(--muted);
+    font-size: 1.1rem;
+}
+
+.event-date-time i, .event-location i { /* Иконки */
+    color: var(--primary-moss); /* Цвет иконок */
+    margin-right: 0.5rem;
+}
+
+.event-location { /* Если есть поле location */
+    margin-top: 0.5rem;
+}
+
+.separator {
+    margin: 0 0.8rem;
+    opacity: 0.7;
+}
+
+/* --- Полное описание --- */
+.event-description-full {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+/* --- Блок с кнопками --- */
+.event-actions {
+    display: flex;
+    flex-wrap: wrap; /* Чтобы кнопки переносились на мобильных */
+    gap: 15px; /* Отступ между кнопками */
+    justify-content: center; /* Центрируем кнопки */
+    margin-top: 2rem;
+}
+
+/* Общие стили для кнопок */
+.event-actions .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Кнопка "Назад" */
+.btn-back {
+    border-color: var(--accent-honey);
+    color: var(--accent-honey);
+    background-color: transparent;
+}
+
+.btn-back:hover {
+    background-color: var(--accent-honey);
+    color: #fff;
+    border-color: var(--accent-honey);
+}
+
+/* Кнопка "Бронирование" */
+.btn-book-now {
+    background-color: var(--primary-moss);
+    border-color: var(--primary-moss);
+    color: #fff;
+}
+
+.btn-book-now:hover {
+    background-color: darken(var(--primary-moss), 10%); /* Затемняем цвет */
+    border-color: darken(var(--primary-moss), 10%);
+    box-shadow: 0 5px 15px rgba(64, 122, 53, 0.3); /* Тень для кнопки */
+}
+
+/* --- Адаптивность --- */
+@media (min-width: 992px) { /* Для больших экранов */
+    .event-content-block {
+        flex-direction: row; /* Постер слева, текст справа */
+        align-items: stretch; /* Равномерно растягиваем по высоте */
+    }
+    .event-poster-detail {
+        width: 45%; /* Постер занимает 45% ширины */
+        height: auto; /* Высота автоматическая, чтобы соответствовать контенту */
+    }
+    .event-info-detail {
+        width: 55%; /* Информация занимает оставшееся место */
+        padding: 3rem 3rem;
+    }
+    .event-detail-title {
+        font-size: 3rem;
+    }
+    .event-description-full {
+        font-size: 1.15rem;
+    }
+    .event-actions {
+        justify-content: flex-start; /* Выравнивание кнопок по левому краю */
+    }
+}
+
+@media (max-width: 767.98px) { /* Для мобильных */
+    .event-detail-wrapper {
+        padding: 1.5rem;
+    }
+    .event-poster-detail {
+        height: 300px; /* Уменьшаем высоту постера на мобильных */
+    }
+    .event-detail-title {
+        font-size: 2rem;
+    }
+    .event-info-detail {
+        padding: 1.5rem 1rem;
+    }
+    .event-actions {
+        flex-direction: column; /* Кнопки одна под другой */
+        align-items: center; /* Центрируем кнопки */
+    }
+    .btn {
+        width: 90%; /* Кнопки на всю ширину */
+        text-align: center;
+    }
+}
+
 .accent-line {
     height: 3px;
-    width: 80px; /* Ширина линии */
+    width: 100px; /* Ширина линии */
     margin: 2rem auto; /* Центрируем и добавляем отступы */
     background: linear-gradient(90deg, var(--primary-moss), var(--accent-honey)); /* Лес + Мед */
     border-radius: 2px;
 }
-
+.accent-line-about {
+    height: 3px;
+    width: 600px; /* Ширина линии */
+    margin: 2rem auto; /* Центрируем и добавляем отступы */
+    background: var(--primary-steak); /* Мед */
+    border-radius: 2px;
+}
 /* Кнопка "Забронировать сейчас" (главная CTA) */
 .btn-cta-b {
     background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
@@ -418,6 +749,70 @@ a:hover {
 .event-read-more:hover {
     background-color: var(--accent-honey);
     color: #fff !important;
+}
+
+.team-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    height: 100%; /* Чтобы все карточки в ряду были одной высоты */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Контейнер для фото */
+.team-image-container {
+    width: 100%;
+    height: 350px; /* Установите ту высоту, которая вам нравится */
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+/* Сама фотография */
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* КЛЮЧЕВОЕ СВОЙСТВО: обрезает лишнее, сохраняя пропорции */
+    object-position: center; /* Центрирует лицо в кадре */
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-photo {
+    transform: scale(1.05); /* Эффект легкого увеличения при наведении */
+}
+
+/* Блок с текстом под фото */
+.team-info {
+    padding: 20px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.team-name {
+    font-family: 'Roboto Slab', serif;
+    color: #2D3419; /* Ваш цвет мха */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.team-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Заглушка, если фото нет */
+.team-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    background: #e0e0e0;
+    color: #aaa;
 }
 
 /* --- 7. Кнопка "Все мероприятия" (под карточками) --- */
@@ -590,11 +985,6 @@ a:hover {
   font-size: 1.8rem; /* Размер эмодзи/иконки */
   line-height: 1; /* Для лучшего выравнивания */
 }
-/* Если используете Font Awesome */
-/* .contact-card-header .header-icon i {
-    color: #fff;
-} */
-
 
 .contact-card-body {
     padding: 2rem;
