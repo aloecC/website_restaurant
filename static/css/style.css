@@ -1,9 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&family=Manrope:wght@400;500&display=swap');
 
-/* --- 2. Глобальные переменные палитры "Лесной мох" --- */
 :root {
-  /* Базовые цвета */
+
   --bg: #FDFBF7;            /* Очень светлый кремовый (цвет небеленого льна) */
   --text: #2D3419;          /* Глубокий хвойно-черный */
   --muted: #6D725B;         /* Полынный / Оливковый (для второстепенного текста) */
@@ -15,50 +15,55 @@
   --accent-steak: #A0522D;   /* Сиенна, цвет стейка */
   --card-bg: #FFF8DC;       /* Светлый крем-брюле */
 
-  /* Акценты "Лесной мох" */
+  --primary-moss-2: #8fbc8f; /* Пример: DarkSeaGreen (мягкий зелёный) */
+  --secondary-moss-2: #90ee90; /* Пример: LightGreen (светло-зелёный) */
+  --berloga-accent-warm: #d99b4a; /* Тёплый акцент (из предыдущих правил) */
+  --berloga-brown-medium: #8c5e3e; /* Тёмно-коричневый */
+
+  /* Для глубокого зелёного при наведении */
+  --dark-green-hover: #326b35; /* Пример глубокого зелёного */
+
   --primary-moss: #388E3C;   /* Сочный лесной мох */
   --secondary-moss: #1B5E20;  /* Глубокая лесная чаща */
 
-
-  /* Теплые "мясные" дополнения (чтобы остаться стейкхаусом) */
   --accent-honey: #C18C5D;   /* Теплое дерево / карамелизованный мед */
   --steak-brown: #5D4037;    /* Цвет прожаренного стейка */
 
-  /* Карточки и тени */
-  --card-bg: #ffffff;       /* Чистый белый для контраста */
+
+  --card-bg: #ffffff;
   --shadow: 0 8px 30px rgba(43, 52, 25, 0.1); /* Тень с легким оливковым подтоном */
 }
 
-/* --- 3. Общие стили для body и typography --- */
+
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Nunito', sans-serif; /* Мягкий шрифт для всего основного текста */
+  font-family: 'Manrope', sans-serif;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased; /* Улучшенное сглаживание шрифтов */
+  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6, .section-title, .navbar-brand {
-  font-family: 'Roboto Slab', serif; /* Массивный шрифт для заголовков */
+  font-family: 'Jost', serif;
   font-weight: 700;
   letter-spacing: 1px;
-  color: var(--text); /* Цвет для всех заголовков */
+  color: var(--text);
 }
 
 a {
-  text-decoration: none; /* Убираем подчеркивание у всех ссылок по умолчанию */
-  color: inherit; /* Ссылки наследуют цвет родителя */
+  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
   text-decoration: none;
 }
 
-/* --- Стили для секции мероприятий --- */
+
 .events-list-section {
     padding: 3rem 0;
-    background-color: var(--bg); /* Используйте вашу переменную для фона */
+    background-color: var(--bg);
 }
 
 .events-list-section .section-title {
@@ -67,9 +72,9 @@ a:hover {
     color: var(--text);
 }
 
-/* --- Стили для ГОРИЗОНТАЛЬНОЙ карточки мероприятия --- */
+
 .event-horizontal-card {
-    display: flex; /* Делает элементы внутри flex-контейнерами */
+    display: flex;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -82,24 +87,24 @@ a:hover {
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
-/* Обертка для постера (фиксированный размер) */
+
 .event-poster-wrapper {
-    flex-shrink: 0; /* Не сжимать этот блок */
-    width: 250px; /* Фиксированная ширина для постера */
-    height: 200px; /* Фиксированная высота для постера */
+    flex-shrink: 0;
+    width: 250px;
+    height: 200px;
     overflow: hidden;
     background-color: #f8f8f8;
 }
 
-/* Стили самого изображения постера */
+
 .event-poster-horizontal {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Обрезает изображение, чтобы оно заполняло контейнер */
-    object-position: center; /* Центрирует изображение */
+    object-fit: cover;
+    object-position: center;
 }
 
-/* Заглушка, если нет постера */
+
 .event-poster-placeholder-horizontal {
     width: 100%;
     height: 100%;
@@ -111,43 +116,41 @@ a:hover {
     background-color: #f0f0f0;
 }
 
-/* Блок с информацией о мероприятии */
 .event-info-horizontal {
-    flex-grow: 1; /* Позволяет блоку занимать оставшееся пространство */
-    padding: 1.5rem 2rem; /* Отступы внутри блока */
+    flex-grow: 1;
+    padding: 1.5rem 2rem;
     display: flex;
-    flex-direction: column; /* Элементы внутри будут идти друг под другом */
-    justify-content: center; /* Центрирует содержимое по вертикали */
+    flex-direction: column;
+    justify-content: center;
 }
 
 .event-title {
     font-size: 1.8rem;
-    font-family: 'Roboto Slab', serif; /* Ваш фирменный шрифт */
-    color: var(--text); /* Цвет текста */
+    font-family: 'Roboto Slab', serif;
+    color: var(--text);
     margin-bottom: 0.8rem;
 }
 
 .event-date {
     font-size: 0.95rem;
-    color: var(--muted); /* Приглушенный цвет */
+    color: var(--muted);
     font-weight: 500;
 }
 
 .event-description {
     font-size: 1rem;
-    color: var(--text-light); /* Немного светлее, чем основной текст */
+    color: var(--text-light);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
 
-/* Стили для кнопки "Подробнее" */
 .event-read-more {
-    align-self: flex-start; /* Прижимает кнопку к началу (левому краю) */
+    align-self: flex-start;
     padding: 0.7rem 1.5rem;
     font-size: 0.9rem;
     border-radius: 5px;
-    border-color: var(--primary-moss); /* Ваш цвет обводки */
-    color: var(--primary-moss); /* Цвет текста кнопки */
+    border-color: var(--primary-moss);
+    color: var(--primary-moss);
 }
 
 .event-read-more:hover {
@@ -155,36 +158,13 @@ a:hover {
     color: #fff;
 }
 
-/* --- Адаптивность для мобильных устройств --- */
-@media (max-width: 767.98px) { /* Для экранов меньше md */
-    .event-horizontal-card {
-        flex-direction: column; /* На мобильных карточка будет вертикальной */
-    }
-    .event-poster-wrapper {
-        width: 100%; /* Постер займет всю ширину */
-        height: 250px; /* Увеличим высоту постера на мобильных */
-    }
-    .event-info-horizontal {
-        padding: 1.2rem;
-        text-align: center; /* Центрируем текст на мобильных */
-    }
-    .event-read-more {
-        align-self: center; /* Центрируем кнопку на мобильных */
-        width: 100%; /* Кнопка на всю ширину */
-    }
-    .event-title {
-        font-size: 1.5rem;
-    }
-}
 
-/* --- 4. Стили для Navbar --- */
 .forest-navbar {
     background-color: var(--bg);
-    padding: 1.5rem 0; /* Увеличиваем вертикальный отступ для большей высоты */
-    border-bottom: 1px solid rgba(109, 114, 91, 0.1); /* Тонкая полынная линия снизу */
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(109, 114, 91, 0.1);
 }
 
-/* Логотип */
 .navbar-brand {
     color: var(--text) !important;
     font-size: 1.4rem;
@@ -195,7 +175,6 @@ a:hover {
 .brand-icon { margin-right: 8px; font-size: 1.6rem; line-height: 1;}
 .brand-text { line-height: 1; }
 
-/* Кнопка-бургер для мобильных */
 .navbar-toggler {
   border-color: rgba(109, 114, 91, 0.2) !important;
 }
@@ -203,42 +182,42 @@ a:hover {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(45, 52, 25, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 }
 
-/* Основные навигационные ссылки */
+
 .forest-navbar .nav-link {
-    color: var(--muted) !important; /* Полынный цвет по умолчанию */
+    color: var(--muted) !important;
     font-weight: 600;
-    margin: 0 10px; /* Отступы между ссылками */
+    margin: 0 10px;
     position: relative;
     transition: all 0.3s ease;
     font-size: 1rem;
 }
-.forest-navbar .nav-link::after { /* Эффект подчеркивания при наведении */
+.forest-navbar .nav-link::after {
     content: '';
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -5px; /* Отступ от текста */
+    bottom: -5px;
     left: 0;
     background-color: var(--primary-moss);
     transition: width 0.3s ease;
 }
 .forest-navbar .nav-link:hover {
-    color: var(--primary-moss) !important; /* Цвет мха при наведении */
-    transform: translateY(-2px); /* Легкое "всплытие" */
+    color: var(--primary-moss) !important;
+    transform: translateY(-2px);
 }
 .forest-navbar .nav-link:hover::after {
     width: 100%;
 }
-.forest-navbar .nav-link.active { /* Активная ссылка */
-    color: var(--secondary-moss) !important; /* Более темный мох для активной */
+.forest-navbar .nav-link.active {
+    color: var(--secondary-moss) !important;
     font-weight: 700;
 }
 .forest-navbar .nav-link.active::after {
-    width: 100%; /* Активная ссылка всегда подчеркнута */
+    width: 100%;
     background-color: var(--secondary-moss);
 }
 
-/* Ссылки "Вход" / "Профиль" */
+
 .nav-link-auth {
     color: var(--muted) !important;
     font-weight: 600;
@@ -250,7 +229,7 @@ a:hover {
     transform: translateY(-2px);
 }
 
-/* Кнопка "Регистрация" (зеленый мох) */
+
 .btn-moss-sm {
     background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
     color: #fff !important;
@@ -267,7 +246,7 @@ a:hover {
     box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
 }
 
-/* Кнопка "Выйти" (контурная, как дерево/мед) */
+
 .btn-outline-moss {
     border: 2px solid var(--accent-honey);
     color: var(--accent-honey) !important;
@@ -286,11 +265,11 @@ a:hover {
     box-shadow: 0 4px 12px rgba(193, 140, 93, 0.2);
 }
 
-/* --- 5. Стили для Hero-секции (описание ресторана и кнопка бронирования) --- */
 .hero-section {
-    padding: 0.23rem 0; /* Высокие отступы сверху/снизу */
+    padding: 0.23rem 0;
     position: relative;
     overflow: hidden;
+    background-color: var(--bg);
 }
 
 .hero-section .container {
@@ -298,65 +277,63 @@ a:hover {
     z-index: 1;
 }
 
-
-/* --- Секция с особенностями ресторана (карточка) --- */
 .features-section {
-    padding: 0.1rem 0; /* Отступ сверху и снизу для всей секции */
-    background-color: var(--bg); /* Фоновый цвет секции */
+    padding: 0.1rem 0;
+    background-color: var(--bg);
 }
 
 .features-card {
-    background-color: var(--card-bg); /* Белый фон для самой карточки */
-    border-radius: 15px; /* Скругленные углы */
-    box-shadow: var(--shadow); /* Наша тень */
-    padding: 2.5rem 2rem; /* Внутренние отступы */
-    margin-top: 2rem; /* Отступ от предыдущего блока */
-    margin-bottom: 2rem; /* Отступ до следующего блока */
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    padding: 2.5rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .features-card-title {
-    font-size: 2.2rem; /* Большой заголовок карточки */
+    font-size: 2.2rem;
     color: var(--text);
-    margin-bottom: 2.5rem; /* Отступ от заголовка до списка */
+    margin-bottom: 2.5rem;
     text-align: center;
 }
 
 .features-list {
-    list-style: none; /* Убираем стандартные маркеры списка */
-    padding-left: 0; /* Убираем стандартный отступ списка */
+    list-style: none;
+    padding-left: 0;
     margin-bottom: 0;
 }
 
 .feature-item {
-    display: flex; /* Для выравнивания иконки и текста в одну строку */
-    align-items: flex-start; /* Иконка выравнивается по верхнему краю текста */
-    margin-bottom: 2rem; /* Отступ между отдельными пунктами */
-    gap: 1.5rem; /* Расстояние между иконкой и текстом */
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1.5rem;
 }
 
 .feature-item:last-child {
-    margin-bottom: 0; /* Убираем отступ у последнего элемента */
+    margin-bottom: 0;
 }
 
 .feature-icon {
-    font-size: 2.2rem; /* Размер иконки */
-    color: var(--primary-moss); /* Цвет мха для иконок */
-    min-width: 45px; /* Фиксированная ширина для выравнивания */
+    font-size: 2.2rem;
+    color: var(--primary-moss);
+    min-width: 45px;
     text-align: center;
-    line-height: 1; /* Для лучшего выравнивания эмодзи/иконок */
-    flex-shrink: 0; /* Предотвращаем сжимание иконки */
+    line-height: 1;
+    flex-shrink: 0;
 }
 
 .feature-title {
     font-family: 'Roboto Slab', serif;
-    font-size: 1.5rem; /* Заголовок пункта */
-    color: var(--primary-moss); /* Цвет мха */
+    font-size: 1.5rem;
+    color: var(--primary-moss);
     margin-bottom: 0.5rem;
     line-height: 1.2;
 }
 
 .feature-description {
-    font-size: 1.05rem; /* Описание пункта */
+    font-size: 1.05rem;
     color: var(--text);
     margin-bottom: 0;
 }
@@ -385,43 +362,42 @@ a:hover {
     margin-bottom: 2rem;
 }
 
-/* --- Стили для детальной страницы мероприятия --- */
 
 .event-detail-section {
     padding: 5rem 0;
-    background-color: var(--bg-light); /* Светлый фон для секции */
+    background-color: var(--bg-light);
 }
 
 .event-detail-wrapper {
-    background-color: #fff; /* Белый фон для всей карточки */
+    background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.07);
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* По умолчанию, сначала идет контент, потом кнопки */
+    flex-direction: column;
 }
 
-/* --- Блок контента (постер + информация) --- */
+
 .event-content-block {
     display: flex;
-    flex-direction: column; /* На мобильных: сначала постер, потом информация */
-    align-items: center; /* Центрируем элементы на случай, если ширина не полная */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* --- Блок постера --- */
+
 .event-poster-detail {
     width: 100%;
-    height: 450px; /* Фиксированная высота для постера */
+    height: 450px;
     overflow: hidden;
-    background-color: var(--muted); /* Цвет, пока изображение грузится */
+    background-color: var(--muted);
 }
 
 .event-poster-detail img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Масштабирует и обрезает, чтобы заполнить блок */
+    object-fit: cover;
     object-position: center;
-    display: block; /* Убирает лишний отступ под картинкой */
+    display: block;
 }
 
 .event-poster-placeholder-detail {
@@ -449,12 +425,12 @@ a:hover {
     margin-top: 0;
 }
 
-/* --- Блок с информацией --- */
+
 .event-info-detail {
-    padding: 2.5rem 2rem; /* Больше отступов */
-    text-align: left; /* Текст выравнивается по левому краю */
-    max-width: 700px; /* Ограничиваем ширину текста для лучшей читаемости */
-    margin: 0 auto; /* Центрируем блок текста */
+    padding: 2.5rem 2rem;
+    text-align: left;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .event-detail-title {
@@ -465,19 +441,19 @@ a:hover {
     line-height: 1.2;
 }
 
-/* --- Метаданные (дата, время, место) --- */
+
 .event-meta {
     margin-bottom: 2rem;
     color: var(--muted);
     font-size: 1.1rem;
 }
 
-.event-date-time i, .event-location i { /* Иконки */
-    color: var(--primary-moss); /* Цвет иконок */
+.event-date-time i, .event-location i {
+    color: var(--primary-moss);
     margin-right: 0.5rem;
 }
 
-.event-location { /* Если есть поле location */
+.event-location {
     margin-top: 0.5rem;
 }
 
@@ -486,7 +462,7 @@ a:hover {
     opacity: 0.7;
 }
 
-/* --- Полное описание --- */
+
 .event-description-full {
     font-size: 1.1rem;
     color: var(--text-light);
@@ -494,16 +470,16 @@ a:hover {
     margin-bottom: 2.5rem;
 }
 
-/* --- Блок с кнопками --- */
+
 .event-actions {
     display: flex;
-    flex-wrap: wrap; /* Чтобы кнопки переносились на мобильных */
-    gap: 15px; /* Отступ между кнопками */
-    justify-content: center; /* Центрируем кнопки */
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
     margin-top: 2rem;
 }
 
-/* Общие стили для кнопок */
+
 .event-actions .btn {
     padding: 1rem 2rem;
     font-size: 1.1rem;
@@ -514,7 +490,7 @@ a:hover {
     letter-spacing: 0.5px;
 }
 
-/* Кнопка "Назад" */
+
 .btn-back {
     border-color: var(--accent-honey);
     color: var(--accent-honey);
@@ -527,7 +503,7 @@ a:hover {
     border-color: var(--accent-honey);
 }
 
-/* Кнопка "Бронирование" */
+
 .btn-book-now {
     background-color: var(--primary-moss);
     border-color: var(--primary-moss);
@@ -535,112 +511,89 @@ a:hover {
 }
 
 .btn-book-now:hover {
-    background-color: darken(var(--primary-moss), 10%); /* Затемняем цвет */
+    background-color: darken(var(--primary-moss), 10%);
     border-color: darken(var(--primary-moss), 10%);
-    box-shadow: 0 5px 15px rgba(64, 122, 53, 0.3); /* Тень для кнопки */
+    box-shadow: 0 5px 15px rgba(64, 122, 53, 0.3);
 }
 
-/* --- Адаптивность --- */
-@media (min-width: 992px) { /* Для больших экранов */
-    .event-content-block {
-        flex-direction: row; /* Постер слева, текст справа */
-        align-items: stretch; /* Равномерно растягиваем по высоте */
-    }
-    .event-poster-detail {
-        width: 45%; /* Постер занимает 45% ширины */
-        height: auto; /* Высота автоматическая, чтобы соответствовать контенту */
-    }
-    .event-info-detail {
-        width: 55%; /* Информация занимает оставшееся место */
-        padding: 3rem 3rem;
-    }
-    .event-detail-title {
-        font-size: 3rem;
-    }
-    .event-description-full {
-        font-size: 1.15rem;
-    }
-    .event-actions {
-        justify-content: flex-start; /* Выравнивание кнопок по левому краю */
-    }
-}
-
-@media (max-width: 767.98px) { /* Для мобильных */
-    .event-detail-wrapper {
-        padding: 1.5rem;
-    }
-    .event-poster-detail {
-        height: 300px; /* Уменьшаем высоту постера на мобильных */
-    }
-    .event-detail-title {
-        font-size: 2rem;
-    }
-    .event-info-detail {
-        padding: 1.5rem 1rem;
-    }
-    .event-actions {
-        flex-direction: column; /* Кнопки одна под другой */
-        align-items: center; /* Центрируем кнопки */
-    }
-    .btn {
-        width: 90%; /* Кнопки на всю ширину */
-        text-align: center;
-    }
-}
 
 .accent-line {
-    height: 3px;
-    width: 100px; /* Ширина линии */
-    margin: 2rem auto; /* Центрируем и добавляем отступы */
-    background: linear-gradient(90deg, var(--primary-moss), var(--accent-honey)); /* Лес + Мед */
+    height: 6px;
+    width: 200px;
+    margin: 2rem auto;
+    background: linear-gradient(90deg, var(--primary-moss), var(--bg));
     border-radius: 2px;
-}
-.accent-line-about {
-    height: 3px;
-    width: 600px; /* Ширина линии */
-    margin: 2rem auto; /* Центрируем и добавляем отступы */
-    background: var(--primary-steak); /* Мед */
-    border-radius: 2px;
-}
-/* Кнопка "Забронировать сейчас" (главная CTA) */
-.btn-cta-b {
-    background: linear-gradient(90deg, var(--primary-moss), var(--secondary-moss));
-    color: #fff !important;
-    border: none;
-    padding: 0.9rem 2rem;
-    border-radius: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 1.1rem;
-    transition: all .25s ease;
-    box-shadow: 0 5px 15px rgba(27, 94, 32, 0.2);
 }
 
-.btn-cta-b:hover, .btn-cta-b:focus {
-    background: linear-gradient(90deg, var(--primary-moss), var(--steak-brown));
-    color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(45, 52, 25, 0.3);
+.accent-line-about {
+    height: 4px;
+    width: 300px;
+    margin: 2rem auto;
+    background: linear-gradient(90deg, var(--text_2), var(--bg));
+    border-radius: 2px;
+
 }
-/* Кнопки в hero */
+}
+
+.btn-cta-b {
+    background-color: var(--primary-moss-2);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    font-size: 1.05rem;
+    transition: all .3s ease;
+    box-shadow: 0 3px 10px rgba(143, 188, 143, 0.3);
+    display: inline-block;
+}
+
+.btn-cta-b:hover,
+.btn-cta-b:focus {
+    background-color: var(--dark-green-hover);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(50, 107, 53, 0.4);
+}
+
+.btn-outline-berloga {
+    background-color: transparent;
+    border: 2px solid var(--primary-moss);
+    color: var(--primary-moss);
+    border-radius: 12px;
+    padding: 0.7rem 1.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    font-size: 1.05rem;
+    transition: all .3s ease;
+}
+.btn-outline-berloga:hover,
+.btn-outline-berloga:focus {
+    background-color: var(--primary-moss);
+    color: #fff;
+    border-color: var(--primary-moss);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(143, 188, 143, 0.4);
+}
+
 .btn-steak-cta, .btn-outline-steak {
-  padding: .7rem 1.4rem; /* Сделаем кнопки крупнее и свободнее */
+  padding: .7rem 1.4rem;
   font-weight: 700;
-  letter-spacing: 0.02em; /* Легкое расстояние между буквами */
+  letter-spacing: 0.02em;
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .btn-steak-cta:hover, .btn-steak-cta:focus,
 .btn-outline-steak:hover, .btn-outline-steak:focus {
-  transform: translateY(-4px); /* Больший эффект "подъема" */
-  box-shadow: 0 12px 30px rgba(178,106,39,0.2); /* Более выраженная тень */
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(178,106,39,0.2);
 }
 .btn-outline-steak:hover {
-  background-color: var(--secondary-steak); /* Кнопка заливается цветом */
-  color: #fff;                             /* Текст становится белым */
-  transform: translateY(-3px);             /* Кнопка слегка "подпрыгивает" вверх */
+  background-color: var(--secondary-steak);
+  color: #fff;
+  transform: translateY(-3px);
 }
-/* --- 6. Стили для карточек мероприятий (Event Cards) --- */
+
 .event-section {
   padding: 3rem 0;
 }
@@ -655,20 +608,20 @@ a:hover {
   padding: .4rem .8rem;
 }
 .event-card {
-    background-color: var(--card-bg); /* Белый фон карточки */
+    background-color: var(--card-bg);
     border-radius: 15px;
-    box-shadow: var(--shadow); /* Наша особая тень */
-    overflow: hidden; /* Чтобы изображение не выходило за рамки */
+    box-shadow: var(--shadow);
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%; /* Чтобы карточки в ряду были одной высоты */
+    height: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 2rem; /* Отступ между карточками */
+    margin-bottom: 2rem;
 }
 
 .event-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(43, 52, 25, 0.2); /* Более выразительная тень при наведении */
+    box-shadow: 0 15px 35px rgba(43, 52, 25, 0.2);
 }
 
 .event-image-wrapper {
@@ -682,11 +635,11 @@ a:hover {
 .event-image {
     display: block;
     width: 100%;
-    height: 250px; /* Фиксированная высота для изображений */
-    object-fit: cover; /* Изображение будет обрезаться, чтобы заполнить блок */
+    height: 250px;
+    object-fit: cover;
 }
 
-.event-placeholder { /* Если изображения нет */
+.event-placeholder {
     width: 100%;
     height: 250px;
     background-color: var(--muted);
@@ -702,11 +655,11 @@ a:hover {
 }
 
 .event-content {
-    padding: 1.5rem; /* Отступы внутри карточки */
-    flex-grow: 1; /* Чтобы контент занимал доступное пространство */
+    padding: 1.5rem;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Размещаем контент для равномерного распределения */
+    justify-content: space-between;
 }
 
 .event-title {
@@ -733,18 +686,18 @@ a:hover {
     font-size: 1rem;
     color: var(--text);
     margin-bottom: 1.5rem;
-    flex-grow: 1; /* Чтобы описание растягивалось */
+    flex-grow: 1;
 }
 
 .event-read-more {
-    display: inline-block; /* Чтобы можно было применить padding */
+    display: inline-block;
     padding: 0.6rem 1.2rem;
     font-weight: 600;
-    color: var(--accent-honey) !important; /* Цвет ссылки */
+    color: var(--accent-honey) !important;
     border: 2px solid var(--accent-honey);
     border-radius: 8px;
     transition: all 0.3s ease;
-    margin-top: auto; /* Прижимает кнопку в самый низ карточки */
+    margin-top: auto;
 }
 .event-read-more:hover {
     background-color: var(--accent-honey);
@@ -757,33 +710,33 @@ a:hover {
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     margin-bottom: 20px;
-    height: 100%; /* Чтобы все карточки в ряду были одной высоты */
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
-/* Контейнер для фото */
+
 .team-image-container {
     width: 100%;
-    height: 350px; /* Установите ту высоту, которая вам нравится */
+    height: 350px;
     overflow: hidden;
     background-color: #f0f0f0;
 }
 
-/* Сама фотография */
+
 .team-photo {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* КЛЮЧЕВОЕ СВОЙСТВО: обрезает лишнее, сохраняя пропорции */
-    object-position: center; /* Центрирует лицо в кадре */
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease;
 }
 
 .team-card:hover .team-photo {
-    transform: scale(1.05); /* Эффект легкого увеличения при наведении */
+    transform: scale(1.05);
 }
 
-/* Блок с текстом под фото */
+
 .team-info {
     padding: 20px;
     text-align: center;
@@ -792,7 +745,7 @@ a:hover {
 
 .team-name {
     font-family: 'Roboto Slab', serif;
-    color: #2D3419; /* Ваш цвет мха */
+    color: #2D3419;
     margin-bottom: 10px;
     font-weight: 700;
 }
@@ -803,7 +756,7 @@ a:hover {
     line-height: 1.5;
 }
 
-/* Заглушка, если фото нет */
+
 .team-photo-placeholder {
     width: 100%;
     height: 100%;
@@ -815,7 +768,7 @@ a:hover {
     color: #aaa;
 }
 
-/* --- 7. Кнопка "Все мероприятия" (под карточками) --- */
+
 .all-events-btn-wrapper {
   text-align: center;
   margin-top: 3rem;
@@ -835,137 +788,30 @@ a:hover {
 .btn-steak-cta:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(27, 94, 32, 0.2);
-  background: linear-gradient(90deg, var(--secondary-moss), var(--primary-moss)); /* Меняем порядок градиента */
+  background: linear-gradient(90deg, var(--secondary-moss), var(--primary-moss));
 }
 
-/* --- 8. Адаптивность для мобильных устройств --- */
-@media (max-width: 991.98px) { /* breakpoint для lg */
-    /* Navbar */
-    .forest-navbar {
-      padding: 1rem 0; /* Чуть меньше на мобильных */
-    }
-    .forest-navbar .navbar-nav {
-        margin-top: 1rem;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        text-align: center;
-    }
-    .forest-navbar .nav-link {
-        margin: 5px 0;
-        padding: 0.5rem 0;
-        font-size: 1rem;
-    }
-    .forest-navbar .nav-link::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .forest-navbar .nav-link.active::after {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .d-flex.ms-auto {
-        justify-content: center !important;
-        width: 100%;
-        margin-top: 1rem;
-    }
-    .navbar-brand {
-        justify-content: center;
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-    .navbar-toggler {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-    }
-
-    /* Hero-секция */
-    .hero-section {
-        padding: 3rem 0;
-    }
-    .restaurant-description h2.section-title {
-        font-size: 2.5rem;
-    }
-    .description-text, .booking-prompt {
-        font-size: 1rem;
-    }
-    .btn-cta-b {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    /* Карточки мероприятий */
-    .event-section .section-title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-    .event-image {
-        height: 200px; /* Чуть меньше высота изображения на мобильных */
-    }
-    .event-placeholder {
-      height: 200px;
-    }
-    .event-title a {
-      font-size: 1.4rem;
-    }
-    .event-content {
-      padding: 1rem;
-    }
-    .all-events-btn-wrapper {
-      margin-top: 2rem;
-      margin-bottom: 3rem;
-    }
-        .features-section {
-        padding: 3rem 0;
-    }
-    .features-card {
-        padding: 1.5rem;
-    }
-    .features-card-title {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-    .feature-item {
-        flex-direction: column; /* На мобильных иконка сверху, текст снизу */
-        align-items: center;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        gap: 0.5rem;
-    }
-    .feature-icon {
-        font-size: 2rem;
-        min-width: unset; /* Отменяем фиксированную ширину */
-        margin-bottom: 0.5rem;
-    }
-    .feature-title {
-        font-size: 1.3rem;
-    }
-    .feature-description {
-        font-size: 0.95rem;
-    }
-}
-* --- 9. Стили для формы контактов "Берлога" --- */
 .contact-form-section {
-    padding: 5rem 0; /* Отступы для всей секции */
-    background-color: var(--bg); /* Фоновый цвет секции */
+    padding: 5rem 0;
+    background-color: var(--bg);
 }
 
 .contact-card {
-    background-color: var(--card-bg); /* Белый фон карточки */
-    border-radius: 15px; /* Скругленные углы */
-    box-shadow: var(--shadow); /* Наша тень */
-    width: 100%; /* Гарантируем полную ширину внутри колонки */
-    margin-top: 2rem; /* Отступы от окружающих элементов */
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    width: 100%;
+    margin-top: 2rem;
     margin-bottom: 2rem;
-    overflow: hidden; /* Для того чтобы border-radius применялся к header */
+    overflow: hidden;
 }
 
 .contact-card-header {
-    background-color: var(--primary-moss); /* Цвет мха для заголовка */
+    background-color: var(--primary-moss);
     padding: 1.5rem 2rem;
-    color: #fff; /* Белый текст заголовка */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Тонкая светлая линия */
-    border-top-left-radius: 15px; /* Скругление углов, т.к. overflow: hidden; */
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
 
@@ -973,40 +819,40 @@ a:hover {
     font-family: 'Roboto Slab', serif;
     font-size: 2rem;
     font-weight: 700;
-    color: #fff; /* Белый для заголовка */
+    color: #fff;
     margin-bottom: 0;
-    display: flex; /* Для выравнивания текста и иконки */
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Отступ между текстом и иконкой */
+    gap: 10px;
 }
 
 .contact-card-header .header-icon {
-  font-size: 1.8rem; /* Размер эмодзи/иконки */
-  line-height: 1; /* Для лучшего выравнивания */
+  font-size: 1.8rem;
+  line-height: 1;
 }
 
 .contact-card-body {
     padding: 2rem;
 }
 
-/* Стили для label */
+
 .contact-label {
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 0.5rem;
-    display: block; /* Чтобы label занимал всю ширину */
-    text-align: left; /* Выравнивание текста label */
+    display: block;
+    text-align: left;
 }
 
-/* Стили для input/textarea (переопределяем Bootstrap form-control) */
+
 .form-control.contact-input {
-    border: 1px solid var(--muted); /* Полынный цвет для границы */
+    border: 1px solid var(--muted);
     border-radius: 8px;
     padding: 0.8rem 1rem;
     font-size: 1rem;
-    background-color: var(--bg); /* Светлый фон для полей */
+    background-color: var(--bg);
     color: var(--text);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
@@ -1017,35 +863,605 @@ a:hover {
 }
 
 .form-control.contact-input:focus {
-    border-color: var(--primary-moss); /* Зеленый при фокусе */
-    box-shadow: 0 0 0 0.25rem rgba(56, 142, 60, 0.25); /* Легкая зеленая тень */
-    background-color: var(--card-bg); /* Можно сделать фон светлее при фокусе */
-    outline: none; /* Убираем стандартный синий outline */
+    border-color: var(--primary-moss);
+    box-shadow: 0 0 0 0.25rem rgba(56, 142, 60, 0.25);
+    background-color: var(--card-bg);
+    outline: none;
 }
 
-/* Адаптивность для формы */
-@media (max-width: 767.98px) {
-    .contact-form-section {
-        padding: 3rem 0;
-    }
-    .contact-card-header {
-        padding: 1.2rem 1.5rem;
-    }
-    .contact-card-header h2 {
-        font-size: 1.8rem;
-    }
-    .contact-card-header .header-icon {
-        font-size: 1.5rem;
-    }
-    .contact-card-body {
-        padding: 1.5rem;
-    }
-    .contact-label {
-        font-size: 0.95rem;
-    }
-    .form-control.contact-input {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.95rem;
-    }
-    /* Кнопка .btn-steak-cta уже должна быть адаптивной из предыдущих стилей */
+
+.profile-container {
+    background: #f4f1ea;
+    min-height: 80vh;
+}
+
+
+.profile-card {
+    background: #fff;
+    border-radius: 20px;
+    border: none;
+    overflow: hidden;
+    border-bottom: 5px solid #2d3419;
+}
+
+
+.profile-sidebar {
+    background: #2d3419;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #d4a373;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-name {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.status-badge {
+    background-color: #d4a373;
+    color: #fff;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 12px;
+}
+
+
+.profile-actions a {
+    color: #fff;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.profile-actions a:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    color: #d4a373;
+}
+
+
+.profile-main {
+    background: #fff;
+}
+
+.section-title-profile {
+    font-family: 'Roboto Slab', serif;
+    color: #2d3419;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.info-group label {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+
+.btn-berloga {
+    background-color: #7A2021;
+    color: #fff;
+    border-radius: 40px;
+    padding: 10px 10px;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+
+.btn-berloga:hover {
+    background-color: #3e4722;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(45, 52, 25, 0.3);
+}
+/
+
+.form-section {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.auth-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 3rem;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.auth-title {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--primary-dark-moss);
+    margin-bottom: 1rem;
+}
+
+.auth-form label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.auth-form label i {
+    color: var(--primary-moss);
+    margin-right: 0.5rem;
+}
+
+.auth-form .form-control {
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.auth-form .form-control:focus {
+    border-color: var(--accent-honey);
+    box-shadow: 0 0 0 0.25rem rgba(212, 163, 115, 0.25);
+}
+
+.auth-form .invalid-feedback {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+
+.btn-berloga {
+    background-color: var(--primary-dark-moss);
+    color: #fff;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-berloga:hover {
+    background-color: var(--accent-honey);
+    color: var(--primary-dark-moss);
+    box-shadow: 0 5px 15px rgba(212, 163, 115, 0.3);
+}
+
+.link-berloga {
+    color: var(--primary-dark-moss);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-berloga:hover {
+    color: var(--accent-honey);
+    text-decoration: underline;
+}
+
+
+.reservations-section {
+    background-color: #f8f9fa;
+    min-height: 90vh;
+}
+
+.status-title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 5px;
+    border-left: 4px solid currentColor;
+}
+
+
+.res-horizontal-card {
+    border: none;
+    border-left: 5px solid transparent;
+    border-radius: 12px;
+    transition: transform 0.2s;
+}
+
+.res-horizontal-card:hover {
+    transform: translateX(5px);
+}
+
+.res-icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #f0f2f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #2d3419;
+}
+
+.btn-outline-berloga {
+    color: #2d3419;
+    border-color: #2d3419;
+}
+
+.btn-outline-berloga:hover {
+    background-color: #2d3419;
+    color: white;
+}
+
+.opacity-75 { opacity: 0.75; }
+.opacity-50 { opacity: 0.5; }
+
+
+.badge {
+    padding: 0.5em 1em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+
+.booking-schema-section {
+    background-color: #fdfaf5;
+    min-height: 80vh;
+}
+
+*/
+.section-title-berloga {
+    font-family: 'Roboto Slab', serif;
+    color: #2d3419;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
+.scheme-frame {
+    display: inline-block;
+    padding: 15px;
+    background: #fff;
+    border: 12px solid #5d4037;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(93, 64, 55, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.scheme-frame:hover {
+    transform: scale(1.01); /
+}
+
+.scheme-img {
+    border-radius: 8px;
+    max-height: 600px;
+    object-fit: contain;
+}
+
+
+.btn-table-number {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: #d4a373;
+    color: #fff;
+    border: 2px solid #bc8a5f;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.table-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: -5px;
+}
+
+.table-id {
+    font-size: 1.8rem;
+    font-weight: 800;
+    font-family: 'Roboto Slab', serif;
+}
+
+
+.btn-table-number:hover {
+    background-color: #407a35;
+    border-color: #2d4f26;
+    color: #fff;
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(64, 122, 53, 0.4);
+}
+
+
+
+.alert-berloga-info {
+    background-color: rgba(212, 163, 115, 0.1);
+    border: 1px solid #d4a373;
+    color: #5d4037;
+    border-radius: 10px;
+    padding: 20px;
+}
+.btn-berloga-lg.btn-success-light {
+    background-color: #6c7d5c;
+    border-color: #6c7d5c;
+}
+.btn-berloga-lg.btn-success-light:hover {
+    background-color: #407a35;
+    border-color: #407a35;
+    color: #fff;
+}
+
+.btn-berloga-lg.btn-danger-light {
+    background-color: #c97c7c;
+    border-color: #c97c7c;
+}
+.btn-berloga-lg.btn-danger-light:hover {
+    background-color: #a04f4f;
+    border-color: #a04f4f;
+    color: #fff;
+}
+
+
+.info-group label {
+    font-size: 0.95rem;
+    color: #777;
+    display: block;
+    margin-bottom: 3px;
+}
+.info-group .info-value {
+    font-size: 1.15rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.menu-page-section {
+  background-color: #fdfaf5;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+
+.forest-oval-panel {
+  background: linear-gradient(145deg, #2d3419, #1a1f0f);
+  border-radius: 50% / 15%;
+  padding: 60px 40px;
+  position: relative;
+  border: 2px solid #d4a373;
+  overflow: hidden;
+}
+
+
+.panel-decor-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url('https://www.transparenttextures.com/patterns/wood-pattern-with-holes.png');
+  opacity: 0.1;
+ pointer-events: none;
+}
+
+.panel-content {
+  position: relative;
+  z-index: 2;
+}
+
+.panel-subtitle {
+  color: #d4a373;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+
+.menu-links-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.berloga-menu-btn {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   max-width: 350px;
+   padding: 15px 25px;
+   background-color: rgba(255, 255, 255, 0.05);
+   border: 1px solid rgba(212, 163, 115, 0.4);
+   border-radius: 50px;
+   color: #fff;
+   text-decoration: none;
+   font-weight: 600;
+   text-transform: uppercase;
+   transition: all 0.3s ease;
+}
+
+.berloga-menu-btn:hover {
+   background-color: #d4a373;
+   color: #2d3419;
+   transform: translateY(-3px);
+   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.berloga-menu-btn:hover .btn-icon {
+    transform: translate(3px, -3px);
+}
+
+
+.btn-oval-small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.28rem 0.9rem;
+  font-size: 0.875rem;
+  line-height: 1;
+  height: auto;
+  border-radius: 999px;
+  border-width: 1px;
+  transition: background-color .15s ease, transform .08s ease;
+  white-space: nowrap;
+}
+
+
+.btn-oval-small:hover {
+  transform: translateY(-1px);
+}
+
+
+.btn-oval-small.btn-outline-secondary {
+  background: transparent;
+}
+.btn-oval-small.btn-secondary {
+
+  background-color: #6c757d;
+  color: #fff;
+}
+
+
+.btn-back.btn-oval-small {
+
+}
+
+
+.btn-berloga {
+    background-color: #b85c1a;
+    border-color: #b85c1a;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-berloga:hover {
+    background-color: #9a4a12;
+    border-color: #9a4a12;
+    transform: translateY(-1px); }
+
+.btn-lg-font {
+    font-size: 0.95rem;
+}
+
+.contact-form-section {
+  background-color: #f5f0e8;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.contact-card {
+  border: 1px solid var(--berloga-brown-medium);
+  border-radius: 10px;
+  background-color: #fffaf0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.contact-card-header {
+  background-color: var(--berloga-brown-medium);
+  color: #fff;
+  padding: 15px 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.contact-card-header h2 {
+  margin-bottom: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.contact-card-body {
+  padding: 30px 25px;
+}
+
+
+.contact-label {
+  color: var(--berloga-brown-dark);
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.contact-input,
+.contact-input::placeholder {
+  color: var(--berloga-text-muted);
+  font-size: 0.95rem;
+  border: 1px solid var(--berloga-brown-light);
+  background-color: #fffcf8;
+}
+
+.contact-input:focus {
+  border-color: var(--berloga-accent-warm);
+  box-shadow: 0 0 0 0.25rem rgba(217, 155, 74, 0.2);
+}
+
+
+.btn-steak-cta {
+  background-color: var(--berloga-accent-warm);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  box-shadow: 0 2px 10px rgba(217, 155, 74, 0.3);
+}
+
+.btn-steak-cta:hover {
+  background-color: #d18f3a;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(217, 155, 74, 0.4);
+}
+
+
+.hero-section {
+  background-color: var(--berloga-brown-light);
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-top: 40px;
+}
+
+.hero-section p {
+  color: var(--berloga-brown-dark);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-section p i {
+  color: var(--berloga-accent-warm);
 }

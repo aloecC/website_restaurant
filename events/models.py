@@ -1,21 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from users.models import CustomUser
-
-
-class AgeGroup(models.Model):
-    """Модель-справочник возрастных групп"""
-
-    name = models.CharField(max_length=50, verbose_name="Возрастная группа")
-    code = models.CharField(max_length=20, unique=True, verbose_name="Код группы")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Возрастная группа"
-        verbose_name_plural = "Возрастные группы"
+from users.models import AgeGroup, CustomUser
 
 
 class Event(models.Model):
@@ -34,15 +20,6 @@ class Event(models.Model):
     recommend_audit_gender = models.CharField(
         choices=CustomUser.GENDER_CHOICES, max_length=15, blank=True, null=True, verbose_name="Целевой пол"
     )
-
-    recommend_audit_ph_children = models.CharField(
-        choices=CustomUser.CHILDREN_STATUS,
-        max_length=15,
-        blank=True,
-        null=True,
-        verbose_name="Целевая аудитория (дети)",
-    )
-
     recommend_audit_age = models.ManyToManyField(AgeGroup, blank=True, verbose_name="Целевые возрастные группы")
 
     def __str__(self):

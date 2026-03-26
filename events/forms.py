@@ -16,7 +16,6 @@ class EventForm(forms.ModelForm):
             "date_start",
             "is_archive",
             "recommend_audit_gender",
-            "recommend_audit_ph_children",
             "recommend_audit_age",
         ]
         widgets = {

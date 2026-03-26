@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +32,6 @@ INSTALLED_APPS = [
     "restaurants",
     "notifications",
     "analytics",
-    "payments",
 ]
 
 MIDDLEWARE = [
@@ -142,3 +142,18 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TIMEZONE = "UTC"
+
+CELERY_BEAT_SCHEDULE = {
+    "delete_old_cancelled_reservations": {
+        "task": "reservations.tasks.delete_old_cancelled_reservations",
+        "schedule": crontab(day_of_month="*/30", hour=3, minute=0),
+    },
+    "update_reservation_statuses": {
+        "task": "reservations.tasks.update_reservation_statuses",
+        "schedule": crontab(minute="*/5"),
+    },
+    "send-reservation-reminders-every-minute": {
+        "task": "reservations.tasks.send_reservation_reminder",
+        "schedule": crontab(minute="*/5"),
+    },
+}

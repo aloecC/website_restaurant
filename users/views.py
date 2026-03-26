@@ -34,6 +34,7 @@ class RegisterView(FormView):
         email = form.cleaned_data["email"]
         password = form.cleaned_data["password1"]
         username = form.cleaned_data["username"]
+        birth_date = form.cleaned_data["birth_date"]
 
         verification_code = self.send_verification_email(email)
 
@@ -42,6 +43,7 @@ class RegisterView(FormView):
             verification_code=verification_code,
             password=password,
             username=username,
+            birth_date=birth_date,
         )
 
         self.request.session["email"] = email
@@ -83,6 +85,7 @@ class VerifyView(FormView):
                         email=temporary_user.email,
                         username=temporary_user.username,
                         password=temporary_user.password,
+                        birth_date=temporary_user.birth_date,
                         email_confirmed=True,
                     )
                     user.set_password(temporary_user.password)
@@ -154,24 +157,6 @@ class LoginView(View):
         send_mail(subject, message, from_email, recipient_list)
 
 
-class UserDetailView(View):
-    def get(self, request, username):
-        user = get_object_or_404(CustomUser, username=username)
-        is_block = ""
-        if user.is_block:
-            is_block = "Заблокирован"
-        else:
-            is_block = "Не заблокирован"
-
-        context = {
-            "user": user,
-            "is_manager": self.request.user.groups.filter(name="Менеджер").exists(),
-            "is_owner_profile": user.pk == self.request.user.pk,
-            "is_block": is_block,
-        }
-        return render(request, "users/user_detail.html", context)
-
-
 class UserProfileView(View):
     """Личный профиль"""
 
@@ -191,15 +176,6 @@ class UserProfileView(View):
         return render(request, "users/user_profile.html", context)
 
 
-class UsersListView(View):
-    def get(self, request):
-        users = CustomUser.objects.all()
-
-        context = {"users": users, "users_count": users.count()}
-
-        return render(request, "users/users_list.html", context)
-
-
 class UserProfileEditView(LoginRequiredMixin, View):
     """Редактирование профиля пользователя"""
 
@@ -214,54 +190,6 @@ class UserProfileEditView(LoginRequiredMixin, View):
             form.save()
             return redirect("users:user_profile")
         return render(request, "users/edit_profile.html", {"form": form})
-
-
-class UserBlockView(LoginRequiredMixin, UserPassesTestMixin, View):
-    """Блокировка пользователя"""
-
-    def post(self, request, username):
-        user = get_object_or_404(CustomUser, username=username)
-
-        user.is_block = True
-        user.is_active = False
-        user.save()
-
-        send_mail(
-            subject="Блокировка",
-            message=f"{user.username}, спешу сообщить, что вы были заблокированы. ",
-            from_email=f"{EMAIL_HOST_USER}",
-            recipient_list=[user.email],
-        )
-
-        return redirect("users:user_detail", username=username)
-
-    def test_func(self):
-        if self.request.user.groups.filter(name="Менеджер").exists():
-            return True
-
-
-class UserEndBlockView(LoginRequiredMixin, UserPassesTestMixin, View):
-    """Снятие блокировки c пользователя"""
-
-    def post(self, request, username):
-        user = get_object_or_404(CustomUser, username=username)
-
-        user.is_block = False
-        user.is_active = True
-        user.save()
-
-        send_mail(
-            subject="Снятие блокировки",
-            message=f"{user.username}, спешу сообщить, что вы снова можете пользоваться нашем сервисом.",
-            from_email=f"{EMAIL_HOST_USER}",
-            recipient_list=[user.email],
-        )
-
-        return redirect("users:user_detail", username=username)
-
-    def test_func(self):
-        if self.request.user.groups.filter(name="Менеджер").exists():
-            return True
 
 
 class DeleteProfileView(LoginRequiredMixin, View):

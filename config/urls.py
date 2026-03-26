@@ -8,6 +8,7 @@ urlpatterns = [
     path("users/", include("users.urls", namespace="users")),
     path("events/", include("events.urls", namespace="events")),
     path("restaurants/", include("restaurants.urls", namespace="restaurants")),
+    path("reservations/", include("reservations.urls", namespace="reservations")),
 ]
 
 if settings.DEBUG:

@@ -25,7 +25,7 @@
                     <div class="event-meta">
                         <p class="event-date-time">
                             <i class="fas fa-calendar-alt me-2"></i>
-                            {{ event.date_start|date:"d E, Y" }}
+                            {{ event.date_start|date:"d E, Y" }} | {{ event.min_age }}+
                         </p>
                     </div>
 
@@ -34,25 +34,23 @@
                     </div>
 
                     <div class="event-actions">
-                        <a href="{% url 'events:events_list' %}" class="btn btn-outline-secondary btn-back">
+                        <a href="{% url 'events:events_list' %}" class="btn btn-outline-secondary btn-oval-small">
                             <i class="fas fa-arrow-left me-2"></i> Назад к списку
                         </a>
-                        {% if user.is_authenticated %}
-                        <a href="#" class="btn btn-primary btn-steak-cta">
-                            Забронировать место <i class="fas fa-ticket-alt ms-2"></i>
+
+                        <a href="{% url 'reservations:reservation_create' %}?event_id={{ event.pk }}" class="btn btn-primary btn-steak-cta">
+                            Забронировать место<i class="fas fa-ticket-alt ms-2"></i>
                         </a>
-                        {% else %}
-                        <a href="#" class="btn btn-primary btn-steak-cta">
-                            Забронировать место <i class="fas fa-ticket-alt ms-2"></i>
-                        </a>
-                        {% endif %}
 
                         {% if is_moderator %}
                         <a href="{% url 'events:event_edit' event.pk %}" class="btn btn-outline-secondary btn-back">
                             Изменить <i class="fas fa-ticket-alt ms-2"></i>
                         </a>
-                        <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-outline-secondary btn-back">
+                        <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-outline-danger btn-oval-small btn-back">
                             Удалить <i class="fas fa-ticket-alt ms-2"></i>
+                        </a>
+                        <a href="{% url 'events:reservs_event_detail' event.pk %}" class="btn btn-outline-secondary btn-oval-small btn-back">
+                            Брони <i class="fas fa-ticket-alt ms-2"></i>
                         </a>
                         {% endif %}
                     </div>

@@ -1,3 +1,4 @@
+from django.contrib.auth import views
 from django.contrib.auth.views import (
     LoginView,
     LogoutView,
@@ -9,17 +10,13 @@ from django.contrib.auth.views import (
 )
 from django.urls import path, reverse_lazy
 
-from .forms import CustomAuthenticationForm
+from .forms import BerlogaPasswordResetForm, CustomAuthenticationForm
 from .views import (
     DeleteProfileView,
     RegisterView,
-    UserBlockView,
-    UserDetailView,
-    UserEndBlockView,
     UserPasswordChange,
     UserProfileEditView,
     UserProfileView,
-    UsersListView,
     VerifyView,
 )
 
@@ -34,21 +31,9 @@ urlpatterns = [
         name="login",
     ),
     path("logout/", LogoutView.as_view(next_page="users:login"), name="logout"),
-    path("users/", UsersListView.as_view(), name="user_list"),
-    path("user/detail/<str:username>/", UserDetailView.as_view(), name="user_detail"),
     path("profile/", UserProfileView.as_view(), name="user_profile"),
     path("profile/edit/", UserProfileEditView.as_view(), name="edit_profile"),
-    path("profile/block/<str:username>/", UserBlockView.as_view(), name="user_block"),
-    path(
-        "profile/endblock/<str:username>/",
-        UserEndBlockView.as_view(),
-        name="user_end_block",
-    ),
-    path(
-        "profile/delete/<str:username>/",
-        DeleteProfileView.as_view(),
-        name="delete_profile",
-    ),
+    path("profile/delete/<str:username>", DeleteProfileView.as_view(), name="delete_profile"),
     path("password-change/", UserPasswordChange.as_view(), name="password_change"),
     path(
         "password-change/done/",

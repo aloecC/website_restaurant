@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import (
     AuthenticationForm,
     PasswordChangeForm,
+    PasswordResetForm,
     UserCreationForm,
 )
 
@@ -29,49 +30,61 @@ class VerificationCodeForm(forms.Form):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    phone_number = forms.CharField(max_length=15, required=False)
-    username = forms.CharField(max_length=50, required=True)
-    usable_password = None
-
-    birth_date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
+    email = forms.EmailField(
+        label="Электронная почта",
+        max_length=254,
+        required=True,
+        widget=forms.EmailInput(attrs={"placeholder": "your_email@example.com"}),
+    )
+    username = forms.CharField(
+        label="Имя пользователя",
+        max_length=50,
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "Например: Сибиряк_88"}),
+    )
+    first_name = forms.CharField(
+        label="Ваше имя",
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "Введите ваше имя"}),
+    )
+    phone_number = forms.CharField(
+        label="Номер телефона",
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(attrs={"placeholder": "+7 (XXX) XXX-XX-XX"}),
+    )
+    birth_date = forms.DateField(
+        label="Дата рождения",
+        required=True,
+        widget=forms.DateInput(attrs={"type": "date", "placeholder": "ДД.ММ.ГГГГ"}),
+    )
 
     class Meta:
         model = CustomUser
         fields = ("email", "username", "first_name", "phone_number", "birth_date", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update(
-            {"class": "form-control", "type": "email", "placeholder": "Введите почту"}
-        )
-
-        self.fields["username"].widget.attrs.update({"class": "form-control", "placeholder": "Введите ник"})
-
-        self.fields["first_name"].widget.attrs.update({"class": "form-control", "placeholder": "Введите ваше имя"})
-
-        self.fields["phone_number"].widget.attrs.update(
-            {
-                "class": "form-control",
-                "placeholder": "Введите ваш номер",
-            }
-        )
-
-        self.fields["password1"].widget.attrs.update({"class": "form-control", "placeholder": "Введите ваш пароль"})
-
-        self.fields["password2"].widget.attrs.update(
-            {"class": "form-control", "placeholder": "Повторно введите ваш пароль"}
-        )
-
-        self.fields["birth_date"].widget.attrs.update(
-            {"class": "form-control", "type": "date", "placeholder": "Введите дату рождения"}
-        )
+        for field_name, field in self.fields.items():
+            if "form-control" not in field.widget.attrs.get("class", "").split():
+                current_classes = field.widget.attrs.get("class", "").split()
+                current_classes.append("form-control")
+                field.widget.attrs["class"] = " ".join(current_classes)
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get("phone_number")
         if phone_number and not phone_number.isdigit():
-            raise forms.ValidationError("номер телефона должен остоять только их цифр")
+            raise forms.ValidationError("Номер телефона должен состоять только из цифр.")
         return phone_number
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.save()
+        return user
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -91,37 +104,23 @@ class CustomAuthenticationForm(AuthenticationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ["avatar", "email", "username", "phone_number", "gender", "pr_children"]
+        fields = ["avatar", "email", "username", "phone_number", "gender", "birth_date"]
 
     def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-        self.fields["email"].widget.attrs.update(
-            {"class": "form-control", "type": "email", "placeholder": "Введите почту"}
-        )
+        for field_name, field in self.fields.items():
+            if "form-control" not in field.widget.attrs.get("class", "").split():
+                current_classes = field.widget.attrs.get("class", "").split()
+                current_classes.append("form-control")
+                field.widget.attrs["class"] = " ".join(current_classes)
 
-        self.fields["username"].widget.attrs.update({"class": "form-control", "placeholder": "Введите ник"})
-
-        self.fields["phone_number"].widget.attrs.update(
-            {
-                "class": "form-control",
-                "placeholder": "Введите ваш номер",
-            }
-        )
-
-        self.fields["pr_children"].widget.attrs.update(
-            {
-                "class": "form-control",
-                "placeholder": "Выберите наличие детей",
-            }
-        )
-
-        self.fields["gender"].widget.attrs.update(
-            {
-                "class": "form-control",
-                "placeholder": "Выберите ваш пол",
-            }
-        )
+        if self.instance and getattr(self.instance, "pk", None):
+            existing_bd = getattr(self.instance, "birth_date", None)
+            if existing_bd:
+                self.fields["birth_date"].disabled = True
+                self.fields["birth_date"].widget.attrs["readonly"] = True
+                self.fields["birth_date"].help_text = "Дата рождения уже указана и не может быть изменена."
 
 
 class ResetPasswordForm(forms.Form):
@@ -149,3 +148,9 @@ class UserPasswordChangeForm(PasswordChangeForm):
         label="Подтверждение пароля",
         widget=forms.PasswordInput(attrs={"class": "form-input"}),
     )
+
+
+class BerlogaPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["email"].widget.attrs.update({"class": "form-control", "placeholder": "example@mail.com"})

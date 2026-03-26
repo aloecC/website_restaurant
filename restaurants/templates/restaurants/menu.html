@@ -1,0 +1,52 @@
+{% extends 'restaurants/base.html' %}
+{% load static %}
+
+{% block title %}Меню — Берлога{% endblock %}
+
+{% block content %}
+<section class="menu-page-section py-5">
+    <div class="container text-center">
+
+        <h2 class="section-title-berloga mb-2">Наше меню</h2>
+        <div class="accent-line-about mx-auto mb-5"></div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+
+
+                <div class="forest-oval-panel shadow-lg">
+                    <div class="panel-decor-overlay"></div>
+
+                    <div class="panel-content">
+                        <p class="panel-subtitle mb-4">Выберите раздел для просмотра PDF</p>
+
+                            <a class="berloga-menu-btn" href="/media/menu/menu.pdf" target="_blank">
+                                <span class="btn-text">Основное меню</span>
+                                <span class="btn-icon">
+                                    <svg width="20" height="20" viewBox="0 0 20 20"><line fill="none" stroke="currentColor" x1="4.5" y1="15.53" x2="16.5" y2="3.53"></line><polyline fill="none" stroke="currentColor" points="16.5 9 16.5 3.5 11 3.5"></polyline></svg>
+                                </span>
+                            </a>
+
+                            <a class="berloga-menu-btn" href="/media/menu/child_menu.pdf" target="_blank">
+                                <span class="btn-text">Детское меню</span>
+                                <span class="btn-icon">
+                                    <svg width="20" height="20" viewBox="0 0 20 20"><line fill="none" stroke="currentColor" x1="4.5" y1="15.53" x2="16.5" y2="3.53"></line><polyline fill="none" stroke="currentColor" points="16.5 9 16.5 3.5 11 3.5"></polyline></svg>
+                                </span>
+                            </a>
+
+
+                            <a class="berloga-menu-btn" href="/media/menu/bar_menu.pdf" target="_blank">
+                                <span class="btn-text">Барное меню</span>
+                                                                <span class="btn-icon">
+                                    <svg width="20" height="20" viewBox="0 0 20 20"><line fill="none" stroke="currentColor" x1="4.5" y1="15.53" x2="16.5" y2="3.53"></line><polyline fill="none" stroke="currentColor" points="16.5 9 16.5 3.5 11 3.5"></polyline></svg>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

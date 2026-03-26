@@ -19,7 +19,7 @@
             Бронируйте столик в пару кликов — уютная атмосфера и внимательный сервис.
           </p>
           <div class="col-lg-12 text-center">
-            <a href="#" class="btn btn-cta-b mt-4 btn-lg">Забронировать сейчас</a>
+            <a href="{% url 'reservations:reservation_create' %}" class="btn btn-cta-b mt-4 btn-lg">Забронировать сейчас</a>
           </div>
         </div>
       </div>
@@ -65,29 +65,41 @@
   </div>
 </section>
 <div class="accent-line-about"></div>
-<h2 class="section-title text-center">Совсем скоро в наших стенах:</h2>
-{% if event_actual_list %}
+<section class="events-list-section">
   <div class="container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      {% for event in event_actual_list %}
-      <div class="col-12">
-          <div>
-            {% if event.poster %}
-              <img src="{{ event.poster.url }}">
-            {% else %}
-            {% endif %}
+    <h2 class="section-title text-center">Совсем скоро в наших стенах:</h2>
+
+    {% if event_actual_list %}
+      <div class="row justify-content-center">
+
+        {% for event in event_actual_list %}
+          <div class="col-12 mb-4">
+            <div class="event-horizontal-card shadow-sm">
+
+              <div class="event-poster-wrapper">
+                {% if event.poster %}
+                  <img src="{{ event.poster.url }}" class="event-poster-horizontal" alt="{{ event.name }}">
+                {% else %}
+                  <div class="event-poster-placeholder-horizontal">🗓️</div>
+                {% endif %}
+              </div>
+
+              <div class="event-info-horizontal">
+                <h3 class="event-title"><a href="#" class="text-decoration-none text-reset">{{ event.name }}</a></h3>
+                <p class="event-date mb-2"><i class="fas fa-calendar-alt me-2"></i> {{ event.date_start|date:"d E, Y, G:i" }}</p>
+                <p class="event-description mb-3">{{ event.description|truncatechars:300 }}</p>
+                <a href="{% url 'events:event_detail' event.pk %}" class="btn btn-outline-steak event-read-more">Подробнее</a>
+              </div>
+
+            </div>
           </div>
-          <div class="p-3 p-md-4">
-            <h3><a href="#" class="text-decoration-none text-reset">{{ event.name }}</a></h3>
-            <p class="text-muted mb-2"><i class="me-2"></i> {{ event.date_start|date:"d E, Y, G:i" }}</p>
-            <p class="text-muted">{{ event.description|truncatechars:100 }}</p>
-            <a href="#" class="btn btn-outline-steak event-read-more w-100">Подробнее</a>
-          </div>
+        {% endfor %}
+
       </div>
-      {% endfor %}
-    </div>
+    {% else %}
+      <p class="text-center">На данный момент нет запланированных мероприятий. Следите за обновлениями!</p>
+    {% endif %}
+
   </div>
-{% else %}
-<p>ffff</p>
-{% endif %}
+</section>
 {% endblock %}

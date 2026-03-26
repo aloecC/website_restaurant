@@ -1,0 +1,17 @@
+{% extends 'restaurants/base.html' %}
+{% block title %} Форма для брони {% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h3 class="mb-3">Форма для брони</h3>
+        <form method="post" enctype="multipart/form-data" action="{% if reservation %}{% url 'reservations:reservation_edit' reservation.pk %}{% else %}{% url 'reservations:reservation_create' %}{% endif %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-moss-sm btn btn-sm">Сохранить</button>
+            {% if user.is_authenticated %}
+            <a href="{% url 'reservations:reservation_list' %}" class="btn btn-outline-secondary btn-back">Отменить</a>
+            {% else %}
+            <a href="{% url 'events:events_actual_list' %}" class="btn btn-outline-secondary btn-back">Отменить</a>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

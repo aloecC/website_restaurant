@@ -31,7 +31,7 @@ class ContactsTemplateView(LoginRequiredMixin, TemplateView):
         return redirect(self.success_url)
 
 
-class AboutUsView(LoginRequiredMixin, TemplateView):
+class AboutUsView(TemplateView):
     """Представление странииы 'О нас'"""
 
     template_name = "restaurants/about_us.html"
@@ -44,3 +44,9 @@ class AboutUsView(LoginRequiredMixin, TemplateView):
         context["team_hall"] = TeamMember.objects.filter(position_department="Зал", is_public=True)
 
         return context
+
+
+class ShowMenuView(TemplateView):
+    """Представление странииы 'Меню'"""
+
+    template_name = "restaurants/menu.html"
