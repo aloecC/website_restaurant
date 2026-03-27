@@ -1,0 +1,56 @@
+{% extends 'restaurants/base.html' %}
+{% block content %}
+
+
+<section class="form-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7">
+                <div class="auth-card shadow-lg">
+                    <h2 class="auth-title text-center mb-4">Вход в «Берлогу»</h2>
+                    <p class="text-center text-muted mb-5">Рады снова видеть вас!</p>
+
+                    <form method="post" class="auth-form">
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in form.non_field_errors %}
+                                    <p class="mb-0">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {# Поле Username (или Email) #}
+                        <div class="form-group mb-3">
+                            <label for="{{ form.username.id_for_label }}"><i class="fas fa-user-alt me-2"></i> {{ form.username.label }}</label>
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        {# Поле Password #}
+                        <div class="form-group mb-4">
+                            <label for="{{ form.password.id_for_label }}"><i class="fas fa-lock me-2"></i> {{ form.password.label }}</label>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="invalid-feedback d-block">{{ form.password.errors }}</div>
+                            {% endif %}
+                            {% if form.password.help_text %}
+                                <small class="form-text text-muted">{{ form.password.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-berloga w-100 mt-3">Войти</button>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <p class="mb-2 text-muted"><a href="{% url 'users:password_reset' %}" class="link-berloga">Забыли пароль?</a></p>
+                        <p class="text-muted">Нет аккаунта? <a href="{% url 'users:register' %}" class="link-berloga">Зарегистрироваться</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

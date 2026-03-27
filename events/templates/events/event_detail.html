@@ -1,0 +1,64 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title%}Главная{% endblock %}
+
+{% block content %}
+
+<section class="event-detail-section">
+    <div class="container">
+        <div class="event-detail-wrapper">
+            <div class="event-content-block">
+                <div class="event-poster-detail">
+                    {% if event.poster %}
+                        <img src="{{ event.poster.url }}" alt="{{ event.name }}">
+                    {% else %}
+                        <div class="event-poster-placeholder-detail">
+                            <h2>{{ event.name }}</h2>
+                            <p>Анонс</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="event-info-detail">
+                    <h2 class="event-detail-title">{{ event.name }}</h2>
+
+                    <div class="event-meta">
+                        <p class="event-date-time">
+                            <i class="fas fa-calendar-alt me-2"></i>
+                            {{ event.date_start|date:"d E, Y" }} | {{ event.min_age }}+
+                        </p>
+                    </div>
+
+                    <div class="event-description-full">
+                        {{ event.description|linebreaksbr }}
+                    </div>
+
+                    <div class="event-actions">
+                        <a href="{% url 'events:events_list' %}" class="btn btn-outline-secondary btn-oval-small">
+                            <i class="fas fa-arrow-left me-2"></i> Назад к списку
+                        </a>
+
+                        <a href="{% url 'reservations:reservation_create' %}?event_id={{ event.pk }}" class="btn btn-primary btn-steak-cta">
+                            Забронировать место<i class="fas fa-ticket-alt ms-2"></i>
+                        </a>
+
+                        {% if is_moderator %}
+                        <a href="{% url 'events:event_edit' event.pk %}" class="btn btn-outline-secondary btn-back">
+                            Изменить <i class="fas fa-ticket-alt ms-2"></i>
+                        </a>
+                        <a href="{% url 'events:event_delete' event.pk %}" class="btn btn-outline-danger btn-oval-small btn-back">
+                            Удалить <i class="fas fa-ticket-alt ms-2"></i>
+                        </a>
+                        <a href="{% url 'events:reservs_event_detail' event.pk %}" class="btn btn-outline-secondary btn-oval-small btn-back">
+                            Брони <i class="fas fa-ticket-alt ms-2"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

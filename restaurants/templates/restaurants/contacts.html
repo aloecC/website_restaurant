@@ -1,0 +1,47 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title%}Поддержка{% endblock %}
+
+{% block content %}
+<div class="contact-form-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8 mb-5">
+        <div class="contact-card">
+          <div class="contact-card-header text-center">
+          </div>
+          <div class="contact-card-body">
+            <form method="post" action="">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="name" class="form-label contact-label">Ваше имя</label>
+                <input type="text" class="form-control contact-input" placeholder="Иван Иванов" id="name" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label contact-label">Ваш email</label>
+                <input type="email" class="form-control contact-input" placeholder="ivanov@mail.ru" id="email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label contact-label">Ваше сообщение</label>
+                <textarea class="form-control contact-input" id="message" placeholder="У меня возникла проблема... Помогите решить" name="message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-steak-cta w-100 mt-3">Отправить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="container hero-section text-end">
+      <div class="col-12">
+          <div class="p-3 p-md-4">
+            <p class="text-muted mb-2"><i class="me-2"></i>Телефон для связи: 89999601631</p>
+            <p class="text-muted">Наш адрес: Улица Речного Бобра, д. 7Б
+                Город: Зареченск
+                Область: Сосновая
+                ндекс: 198765</p>
+          </div>
+      </div>
+  </div>
+{% endblock content %}

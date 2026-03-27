@@ -1,0 +1,84 @@
+{% extends 'restaurants/base.html' %}
+{% load static %}
+
+{% block title %}Личный профиль — Берлога{% endblock %}
+
+{% block content %}
+<div class="profile-container py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="profile-card shadow-lg">
+                    <div class="row g-0">
+                        <div class="col-md-4 profile-sidebar text-center p-4">
+                            <div class="avatar-wrapper mb-3">
+                                {% if user.avatar %}
+                                    <img src="{{ user.avatar.url }}" class="profile-avatar" alt="Avatar">
+                                {% else %}
+                                    <img src="https://cdn-icons-png.flaticon.com/128/149/149071.png" class="profile-avatar opacity-50" alt="Default Avatar">
+                                {% endif %}
+                            </div>
+                            <h4 class="profile-name">{{ user.username }}</h4>
+                            <span class="badge status-badge mb-3">
+                                {% if is_manager %} Менеджер {% else %} Гость {% endif %}
+                            </span>
+
+                            <div class="profile-actions d-flex justify-content-center gap-3">
+                                <a href="{% url 'users:edit_profile' %}" title="Редактировать"><i class="fas fa-user-edit"></i></a>
+                                <a href="{% url 'users:password_change' %}" title="Сменить пароль"><i class="fas fa-key"></i></a>
+                                <a href="{% url 'users:delete_profile' user.username %}" class="text-danger" title="Удалить аккаунт"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-8 profile-main p-4 p-lg-5">
+                            <h2 class="section-title-profile mb-4">Данные профиля</h2>
+
+                            <div class="info-group mb-3">
+                                <label>Номер телефона</label>
+                                <div class="info-value">{{ user.phone_number|default:"Не указан" }}</div>
+                            </div>
+
+                            <div class="info-group mb-3">
+                                <label>Электронная почта</label>
+                                <div class="info-value">{{ user.email }}</div>
+                            </div>
+                            <div class="info-group mb-3">
+                                <label>Дата рождения</label>
+                                <div class="info-value">{{ user.birth_date|default:"Не указана" }}</div>
+                            </div>
+                            <div class="info-group mb-3">
+                                <label>Пол</label>
+                                <div class="info-value">{{ user.gender|default:"Не указан" }}</div>
+                            </div>
+
+                            <div class="info-group mb-4">
+                                <label>Статус почты</label>
+                                <div class="info-value">
+                                    {% if user.email_confirmed %}
+                                        <span class="text-success"><i class="fas fa-check-circle"></i> Подтверждена</span>
+                                    {% else %}
+                                        <span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Не подтверждена</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            {% if is_manager %}
+                            <div class="info-group mb-4">
+                                <label>Статус блокировки</label>
+                                <div class="info-value">{{ is_block|default:"Активен" }}</div>
+                            </div>
+                            {% endif %}
+
+                            <div class="profile-actions gap-3">
+                                <a href="{% url 'users:edit_profile' %}" class="text-dark mx-3" title="Редактировать">Редактировать</a>
+                                <a href="{% url 'users:password_change' %}" class="text-dark mx-3"  title="Сменить пароль">Сменить пароль</a>
+                                <a href="{% url 'users:delete_profile' user.username %}" class="text-danger mx-3" title="Удалить аккаунт">Удалить<i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

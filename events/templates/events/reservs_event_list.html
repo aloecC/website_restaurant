@@ -1,0 +1,56 @@
+{% extends 'restaurants/base.html' %}
+{% load static %}
+
+{% block title %}Мои бронирования — Берлога{% endblock %}
+
+{% block content %}
+<section class="reservations-section py-5">
+    <div class="container">
+        <h2 class="section-title mb-5"><i class="fas fa-utensils me-3"></i>Бронирования в мероприятие {{ reservs_event.name }}</h2>
+        <h4 class="section-title mb-5"><i class="fas fa-utensils me-3"></i>Всего активных броней: {{ count }}</h4>
+        <a href="{% url 'events:event_detail' reservs_event.pk %}" class="btn btn-outline-secondary w-100 btn-back">
+          <i class="fas fa-arrow-left me-2"></i> Назад к списку
+        </a>
+        {% if in_event %}
+            {% if not pending and not confirmed and not completed and not expired %}
+                <div class="text-center py-5 shadow-sm bg-white rounded-lg">
+                    <i class="fas fa-calendar-times fa-4x mb-3 text-muted"></i>
+                    <p class="lead text-muted">Пока нет активных бронирований.</p>
+                </div>
+            {% else %}
+                {% if pending %}
+                    <h3 class="status-title text-warning"><i class="fas fa-clock me-2"></i>Ожидают подтверждения</h3>
+                    <div class="row row-cols-1 g-3 mb-5">
+                        {% for res in pending %}
+                            {% include 'reservations/includes/reservation_card.html' with res=res border_class="border-warning" %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if confirmed %}
+                    <h3 class="status-title text-success"><i class="fas fa-check-circle me-2"></i>Подтвержденные записи</h3>
+                    <div class="row row-cols-1 g-3 mb-5">
+                        {% for res in confirmed %}
+                            {% include 'reservations/includes/reservation_card.html' with res=res border_class="border-success" %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if cancelled %}
+                    <h3 class="status-title text-success"><i class="fas fa-check-circle me-2"></i>Отмененные записи</h3>
+                    <div class="row row-cols-1 g-3 mb-5">
+                        {% for res in cancelled %}
+                            {% include 'reservations/includes/reservation_card.html' with res=res border_class="border-success" %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+        <div class="text-center py-5 shadow-sm bg-white rounded-lg">
+          <i class="fas fa-calendar-times fa-4x mb-3 text-muted"></i>
+          <p class="lead text-muted">Пока нет активных бронирований.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

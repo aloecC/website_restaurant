@@ -1,0 +1,149 @@
+{% extends 'restaurants/base.html' %}
+{% load static %}
+
+{% block title %}Бронирование №{{ reservation.pk }} — Берлога{% endblock %}
+
+{% block content %}
+<section class="reservation-detail-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="auth-card shadow-lg p-5">
+                    <h2 class="auth-title text-center mb-4">Детали бронирования №{{ reservation.pk }}</h2>
+                    <div class="accent-line-about mb-4"></div>
+
+                    <div class="reservation-details mt-4">
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-user me-2"></i> Клиент:</label>
+                            <p class="info-value">{{ reservation.guest_name }}</p>
+                        </div>
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-phone me-2"></i> Телефон:</label>
+                            <p class="info-value">{{ reservation.guest_phone }}</p>
+                        </div>
+                        {% if reservation.user %}
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-envelope me-2"></i> Email пользователя:</label>
+                            <p class="info-value">{{ reservation.user.email }}</p>
+                        </div>
+                        {% endif %}
+                        <div class="info-group mb-3">
+                            <label><i class="far fa-calendar-alt me-2"></i> Дата:</label>
+                            <p class="info-value">{{ reservation.date|date:"d M Y (l)" }}</p>
+                        </div>
+                                                <div class="info-group mb-3">
+                            <label><i class="far fa-clock me-2"></i> Время:</label>
+                            <p class="info-value">с {{ reservation.start_time|time:"H:i" }} до {{ reservation.end_time|time:"H:i" }}</p>
+                        </div>
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-users me-2"></i> Количество гостей:</label>
+                            <p class="info-value">{{ reservation.guests }}</p>
+                        </div>
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-chair me-2"></i> Стол:</label>
+                            <p class="info-value">№{{ reservation.table.number }} (вместимость {{ reservation.table.capacity }})</p>
+                        </div>
+                         <div class="info-group mb-3">
+                            <label><i class="fas fa-tag me-2"></i> Статус бронирования:</label>
+                            <p class="info-value">
+                                <span class="badge
+                                    {% if reservation.status == 'PENDING' %}bg-warning text-dark
+                                    {% elif reservation.status == 'CONFIRMED' %}bg-success
+                                    {% elif reservation.status == 'CANCELLED' %}bg-danger
+                                    {% elif reservation.status == 'COMPLETED' %}bg-secondary
+                                    {% else %}bg-info{% endif %}">
+                                    {{ reservation.get_status_display }}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-hourglass-start me-2"></i> Создано:</label>
+                            <p class="info-value">{{ reservation.created_at|date:"d M Y, H:i" }}</p>
+                        </div>
+                        {% if reservation.comment %}
+                        <div class="info-group mb-3">
+                            <label><i class="fas fa-comment-dots me-2"></i> Комментарий:</label>
+                                                        <p class="info-value">{{ reservation.comment }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if request.user.is_staff %}
+                        <div class="admin-actions mt-5 text-center">
+                            <h4>Изменить статус брони:</h4>
+                            <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
+                                {% if reservation.status == 'PENDING' %}
+                                    <form method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="status" value="CONFIRMED">
+                                        <button type="submit" class="btn btn-berloga-lg btn-success-light">
+                                            <i class="fas fa-check-double me-2"></i> Подтвердить
+                                        </button>
+                                    </form>
+                                    <form method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="status" value="CANCELLED">
+                                        <button type="submit" class="btn btn-berloga-lg btn-danger-light">
+                                            <i class="fas fa-times me-2"></i> Отменить
+                                        </button>
+                                        </form>
+                                {% elif reservation.status == 'CONFIRMED' %}
+                                    <form method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="status" value="CANCELLED">
+                                        <button type="submit" class="btn btn-berloga-lg btn-danger-light">
+                                            <i class="fas fa-times me-2"></i> Отменить
+                                        </button>
+                                    </form>
+                                    <span class="text-muted mt-2">Бронь подтверждена. Можно только отменить.</span>
+                                {% elif reservation.status == 'CANCELLED' %}
+                                    <span class="text-muted mt-2">Бронь уже отменена.</span>
+                                {% elif reservation.status == 'COMPLETED' %}
+                                    <span class="text-muted mt-2">Бронь завершена.</span>
+                                {% elif reservation.status == 'EXPIRED' %}
+                                    <span class="text-muted mt-2">Срок брони истек.</span>
+                                {% endif %}
+                            </div>
+                            <a href="{% url 'reservations:reservation_list' %}" class="link-berloga">
+                                <i class="fas fa-arrow-left me-2"></i> Вернуться к списку броней
+                            </a>
+                            <a href="{% url 'reservations:reservation_delete' reservation.pk %}" class="mx-1"><img src="https://cdn-icons-png.flaticon.com/128/5074/5074264.png" style="width: auto; height: 40px;" title="Удалить"></a>
+                        </div>
+
+                    {% else %}
+
+                    <div class="text-center mt-4">
+                       {% if reservation.status == 'PENDING' %}
+                            <form method="post" class="d-inline">
+                            {% csrf_token %}
+                               <input type="hidden" name="status" value="CANCELLED">
+                               <button type="submit" class="btn btn-berloga-lg btn-danger-light">
+                                   <i class="fas fa-times me-2"></i> Отменить
+                               </button>
+                            </form>
+                            {% elif reservation.status == 'CONFIRMED' %}
+                               <form method="post" class="d-inline">
+                                    {% csrf_token %}
+                                      <input type="hidden" name="status" value="CANCELLED">
+                                      <button type="submit" class="btn btn-berloga-lg btn-danger-light">
+                                        <i class="fas fa-times me-2"></i> Отменить
+                                      </button>
+                               </form>
+                            {% endif %}
+                        <a href="{% url 'reservations:reservation_list' %}" class="link-berloga">
+                            <i class="fas fa-arrow-left me-2"></i> Вернуться к списку броней
+                        </a>
+                        {% if reservation.status != "COMPLETED" or reservation.status != "CANCELLED" or reservation.status != "EXPIRED" %}
+                        <a href="{% url 'reservations:reservation_edit' reservation.pk %}" class="link-berloga">
+                            <i class="fas fa-arrow-left me-2"></i> Изменить
+                        </a>
+
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

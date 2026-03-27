@@ -1,0 +1,95 @@
+{% extends 'restaurants/base.html' %}
+
+{% block title%} События {% endblock %}
+
+{% block content %}
+{% include 'restaurants/header.html' %}
+{% if is_moderator %}
+<section class="events-list-section">
+  <div class="container">
+    <a href="{% url 'events:event_create' %}" class="btn btn-outline-secondary btn-back w-100">Добавить новое мероприятие</a>
+  </div>
+</section>
+{% endif %}
+
+<section class="events-list-section">
+  <div class="container">
+    <h2 class="section-title text-center">Совсем скоро в наших стенах:</h2>
+
+    {% if events %}
+      <div class="row justify-content-center">
+
+        {% for event in events %}
+          <div class="col-12 mb-4">
+            <div class="event-horizontal-card shadow-sm">
+
+              {# Блок для постера #}
+              <div class="event-poster-wrapper">
+                {% if event.poster %}
+                  <img src="{{ event.poster.url }}" class="event-poster-horizontal" alt="{{ event.name }}">
+                {% else %}
+                  <div class="event-poster-placeholder-horizontal">🗓️</div>
+                {% endif %}
+              </div>
+
+              <div class="event-info-horizontal">
+                <h3 class="event-title"><a href="#" class="text-decoration-none text-reset">{{ event.name }}</a></h3>
+                <p class="event-date mb-2"><i class="fas fa-calendar-alt me-2"></i> {{ event.date_start|date:"d E, Y, G:i" }}</p>
+                <p class="event-date mb-2"><i class="fas fa-calendar-alt me-2"></i> {{ event.min_age }}+</p>
+                <p class="event-description mb-3">{{ event.description|truncatechars:300 }}</p>
+                <a href="{% url 'events:event_detail' event.pk %}" class="btn btn-outline-steak event-read-more">Подробнее</a>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <p class="text-center">На данный момент нет запланированных мероприятий. Следите за обновлениями!</p>
+    {% endif %}
+
+  </div>
+</section>
+
+{% if is_moderator %}
+<section class="events-list-section">
+  <div class="container">
+    <h2 class="section-title text-center">Прошедшие мероприятия:</h2>
+
+    {% if events_archive %}
+      <div class="row justify-content-center">
+
+        {% for event in events_archive %}
+          <div class="col-12 mb-4">
+            <div class="event-horizontal-card shadow-sm">
+
+              {# Блок для постера #}
+              <div class="event-poster-wrapper">
+                {% if event.poster %}
+                  <img src="{{ event.poster.url }}" class="event-poster-horizontal" alt="{{ event.name }}">
+                {% else %}
+                  <div class="event-poster-placeholder-horizontal">🗓️</div>
+                {% endif %}
+              </div>
+
+              <div class="event-info-horizontal">
+                <h3 class="event-title"><a href="#" class="text-decoration-none text-reset">{{ event.name }}</a></h3>
+                <p class="event-date mb-2"><i class="fas fa-calendar-alt me-2"></i> {{ event.date_start|date:"d E, Y, G:i" }}</p>
+                <p class="event-description mb-3">{{ event.description|truncatechars:300 }}</p>
+                <a href="{% url 'events:event_detail' event.pk %}" class="btn btn-outline-steak event-read-more">Подробнее</a>
+              </div>
+
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <p class="text-center">На данный момент прошедших мероприятий нет или они были удалены</p>
+    {% endif %}
+{% endif %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+from django.contrib.auth.models import User
+from django.db import models
+
+from users.models import AgeGroup, CustomUser
+
+
+class Event(models.Model):
+    """Модель ананосов в ресторане"""
+
+    name = models.CharField(max_length=100, verbose_name="Название")
+    poster = models.ImageField(upload_to="events/", verbose_name="Постер", blank=True, null=True)
+
+    description = models.TextField(max_length=10000, verbose_name="Описание")
+    min_age = models.PositiveIntegerField(default=0, blank=True, null=True, verbose_name="Возрастное ограничение")
+
+    date_start = models.DateTimeField(verbose_name="Дата начала", null=True)
+    now_people = models.PositiveIntegerField(default=50, verbose_name="Актуальное количество человек")
+
+    is_archive = models.BooleanField(default=False)
+    recommend_audit_gender = models.CharField(
+        choices=CustomUser.GENDER_CHOICES, max_length=15, blank=True, null=True, verbose_name="Целевой пол"
+    )
+    recommend_audit_age = models.ManyToManyField(AgeGroup, blank=True, verbose_name="Целевые возрастные группы")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "мероприятие"
+        verbose_name_plural = "мероприятия"
+        ordering = ["-date_start"]

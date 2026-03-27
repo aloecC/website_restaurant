@@ -1,0 +1,57 @@
+{% extends 'restaurants/base.html' %}
+{% load static %}
+
+{% block title %}Схема бронирования — Берлога{% endblock %}
+
+{% block content %}
+<section class="booking-schema-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="restaurant-description text-center">
+
+
+          <h2 class="section-title-berloga">Схема нашей «Берлоги»</h2>
+          <div class="accent-line-about mb-4"></div>
+
+
+          <div class="scheme-wrapper mb-5">
+            <div class="scheme-frame">
+                <img src="/media/photos/схема%20зала.jpg" alt="Схема зала" class="img-fluid scheme-img">
+            </div>
+            <p class="mt-3 text-muted small"><i class="fas fa-info-circle me-1"></i> Нажмите на номер свободного столика ниже, чтобы перейти к бронированию</p>
+          </div>
+
+          <div class="accent-line-about mb-4"></div>
+
+
+          <h2 class="section-title-berloga">Свободные столики</h2>
+
+          <div class="tables-grid mt-4">
+            {% if is_free %}
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                {% for table in is_free %}
+                <form method="post" action="{% url 'reservations:reservation_table_list' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="table_id" value="{{ table.id }}">
+
+                    <button type="submit" class="btn btn-table-number" title="Забронировать стол №{{ table.number }}">
+                        <span class="table-label">Стол</span>
+                        <span class="table-id">{{ table.number }}</span>
+                    </button>
+                </form>
+                {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-berloga-info">
+                    <i class="fas fa-exclamation-circle me-2"></i> К сожалению, на выбранное время все столики заняты.
+                </div>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
